@@ -292,96 +292,228 @@ function wave_movies_screenshots_meta_box($post) {
 }
 
 /**
- * Episodes Meta Box Callback
+ * Download Groups Meta Box Callback
+ * Each download group has a name (e.g., "480p [250MB/E]") and its own list of episodes
  */
 function wave_movies_episodes_meta_box($post) {
     wp_nonce_field('wm_episodes_nonce', 'wm_episodes_nonce_field');
-    $episodes = get_post_meta($post->ID, '_wm_episodes', true);
-    if (!is_array($episodes)) {
-        $episodes = array();
+    $download_groups = get_post_meta($post->ID, '_wm_download_groups', true);
+    if (!is_array($download_groups)) {
+        $download_groups = array();
     }
     ?>
-    <div class="wm-episodes-manager">
-        <p><?php _e('Add episodes with their download links. Each episode will appear on the episodes page.', 'wave-movies'); ?></p>
+    <div class="wm-download-groups-manager">
+        <p><?php _e('Add download groups (e.g., different quality versions like 480p, 720p, 1080p). Each group can have its own episodes with download links.', 'wave-movies'); ?></p>
         
-        <table class="widefat" id="wm-episodes-table">
-            <thead>
-                <tr>
-                    <th style="width: 50px;">#</th>
-                    <th><?php _e('Episode Title', 'wave-movies'); ?></th>
-                    <th><?php _e('Download Link', 'wave-movies'); ?></th>
-                    <th style="width: 60px;"><?php _e('Actions', 'wave-movies'); ?></th>
-                </tr>
-            </thead>
-            <tbody id="wm-episodes-body">
-                <?php if (!empty($episodes)) : ?>
-                    <?php foreach ($episodes as $index => $episode) : ?>
-                        <tr class="wm-episode-row" data-index="<?php echo $index; ?>">
-                            <td class="wm-episode-number"><?php echo $index + 1; ?></td>
-                            <td>
-                                <input type="text" 
-                                       name="wm_episodes[<?php echo $index; ?>][title]" 
-                                       value="<?php echo esc_attr($episode['title']); ?>" 
-                                       placeholder="<?php _e('Episode title...', 'wave-movies'); ?>"
-                                       class="regular-text">
-                            </td>
-                            <td>
-                                <input type="url" 
-                                       name="wm_episodes[<?php echo $index; ?>][link]" 
-                                       value="<?php echo esc_url($episode['link']); ?>" 
-                                       placeholder="https://..."
-                                       class="regular-text">
-                            </td>
-                            <td>
-                                <button type="button" class="button wm-remove-episode" title="<?php _e('Remove', 'wave-movies'); ?>">
-                                    <span class="dashicons dashicons-trash"></span>
+        <div id="wm-download-groups-container">
+            <?php if (!empty($download_groups)) : ?>
+                <?php foreach ($download_groups as $group_index => $group) : ?>
+                    <div class="wm-download-group" data-group-index="<?php echo $group_index; ?>">
+                        <div class="wm-download-group__header">
+                            <span class="dashicons dashicons-menu wm-drag-handle"></span>
+                            <input type="text" 
+                                   name="wm_download_groups[<?php echo $group_index; ?>][name]" 
+                                   value="<?php echo esc_attr($group['name']); ?>" 
+                                   placeholder="<?php _e('e.g., 480p [250MB/E] or 720p Hindi-English', 'wave-movies'); ?>"
+                                   class="wm-group-name regular-text">
+                            <button type="button" class="button wm-toggle-group">
+                                <span class="dashicons dashicons-arrow-down-alt2"></span>
+                            </button>
+                            <button type="button" class="button wm-remove-group" title="<?php _e('Remove Group', 'wave-movies'); ?>">
+                                <span class="dashicons dashicons-trash"></span>
+                            </button>
+                        </div>
+                        
+                        <div class="wm-download-group__episodes">
+                            <table class="widefat wm-episodes-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 40px;">#</th>
+                                        <th><?php _e('Episode Title', 'wave-movies'); ?></th>
+                                        <th><?php _e('Download Link', 'wave-movies'); ?></th>
+                                        <th style="width: 50px;"><?php _e('Del', 'wave-movies'); ?></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="wm-episodes-body">
+                                    <?php if (!empty($group['episodes']) && is_array($group['episodes'])) : ?>
+                                        <?php foreach ($group['episodes'] as $ep_index => $episode) : ?>
+                                            <tr class="wm-episode-row">
+                                                <td class="wm-episode-number"><?php echo $ep_index + 1; ?></td>
+                                                <td>
+                                                    <input type="text" 
+                                                           name="wm_download_groups[<?php echo $group_index; ?>][episodes][<?php echo $ep_index; ?>][title]" 
+                                                           value="<?php echo esc_attr($episode['title']); ?>" 
+                                                           placeholder="<?php _e('Episode title...', 'wave-movies'); ?>"
+                                                           class="regular-text">
+                                                </td>
+                                                <td>
+                                                    <input type="url" 
+                                                           name="wm_download_groups[<?php echo $group_index; ?>][episodes][<?php echo $ep_index; ?>][link]" 
+                                                           value="<?php echo esc_url($episode['link']); ?>" 
+                                                           placeholder="https://..."
+                                                           class="regular-text">
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="button wm-remove-episode">
+                                                        <span class="dashicons dashicons-no-alt"></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                            <p>
+                                <button type="button" class="button wm-add-episode">
+                                    <span class="dashicons dashicons-plus-alt2"></span>
+                                    <?php _e('Add Episode', 'wave-movies'); ?>
                                 </button>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </tbody>
-        </table>
+                            </p>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
         
-        <p style="margin-top: 15px;">
-            <button type="button" class="button button-primary" id="wm-add-episode">
+        <p style="margin-top: 20px;">
+            <button type="button" class="button button-primary button-hero" id="wm-add-download-group">
                 <span class="dashicons dashicons-plus-alt" style="vertical-align: middle;"></span>
-                <?php _e('Add Episode', 'wave-movies'); ?>
+                <?php _e('Add Download Group', 'wave-movies'); ?>
             </button>
         </p>
     </div>
     
     <style>
-        #wm-episodes-table { margin-top: 15px; }
-        #wm-episodes-table input { width: 100%; }
-        .wm-episode-number { text-align: center; font-weight: bold; }
-        .wm-remove-episode .dashicons { color: #dc3545; }
+        .wm-download-groups-manager { padding: 10px 0; }
+        .wm-download-group {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        .wm-download-group__header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+        }
+        .wm-drag-handle { cursor: grab; color: #999; }
+        .wm-group-name { flex: 1; font-weight: 600; }
+        .wm-download-group__episodes {
+            padding: 15px;
+        }
+        .wm-download-group__episodes.collapsed { display: none; }
+        .wm-episodes-table input { width: 100%; }
+        .wm-episode-number { text-align: center; font-weight: bold; color: #666; }
+        .wm-remove-group .dashicons, .wm-remove-episode .dashicons { color: #dc3545; }
+        .wm-toggle-group .dashicons { transition: transform 0.2s; }
+        .wm-download-group.collapsed .wm-toggle-group .dashicons { transform: rotate(-90deg); }
+        #wm-add-download-group { margin-top: 10px; }
     </style>
     
     <script>
     jQuery(document).ready(function($) {
-        var episodeIndex = <?php echo count($episodes); ?>;
+        var groupIndex = <?php echo count($download_groups); ?>;
         
-        $('#wm-add-episode').on('click', function() {
-            var row = '<tr class="wm-episode-row" data-index="' + episodeIndex + '">' +
-                '<td class="wm-episode-number">' + (episodeIndex + 1) + '</td>' +
-                '<td><input type="text" name="wm_episodes[' + episodeIndex + '][title]" placeholder="<?php _e('Episode title...', 'wave-movies'); ?>" class="regular-text"></td>' +
-                '<td><input type="url" name="wm_episodes[' + episodeIndex + '][link]" placeholder="https://..." class="regular-text"></td>' +
-                '<td><button type="button" class="button wm-remove-episode" title="<?php _e('Remove', 'wave-movies'); ?>"><span class="dashicons dashicons-trash"></span></button></td>' +
-                '</tr>';
+        // Add Download Group
+        $('#wm-add-download-group').on('click', function() {
+            var groupHtml = `
+                <div class="wm-download-group" data-group-index="${groupIndex}">
+                    <div class="wm-download-group__header">
+                        <span class="dashicons dashicons-menu wm-drag-handle"></span>
+                        <input type="text" 
+                               name="wm_download_groups[${groupIndex}][name]" 
+                               placeholder="<?php _e('e.g., 480p [250MB/E] or 720p Hindi-English', 'wave-movies'); ?>"
+                               class="wm-group-name regular-text">
+                        <button type="button" class="button wm-toggle-group">
+                            <span class="dashicons dashicons-arrow-down-alt2"></span>
+                        </button>
+                        <button type="button" class="button wm-remove-group" title="<?php _e('Remove Group', 'wave-movies'); ?>">
+                            <span class="dashicons dashicons-trash"></span>
+                        </button>
+                    </div>
+                    <div class="wm-download-group__episodes">
+                        <table class="widefat wm-episodes-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 40px;">#</th>
+                                    <th><?php _e('Episode Title', 'wave-movies'); ?></th>
+                                    <th><?php _e('Download Link', 'wave-movies'); ?></th>
+                                    <th style="width: 50px;"><?php _e('Del', 'wave-movies'); ?></th>
+                                </tr>
+                            </thead>
+                            <tbody class="wm-episodes-body"></tbody>
+                        </table>
+                        <p>
+                            <button type="button" class="button wm-add-episode">
+                                <span class="dashicons dashicons-plus-alt2"></span>
+                                <?php _e('Add Episode', 'wave-movies'); ?>
+                            </button>
+                        </p>
+                    </div>
+                </div>`;
             
-            $('#wm-episodes-body').append(row);
-            episodeIndex++;
-            updateNumbers();
+            $('#wm-download-groups-container').append(groupHtml);
+            groupIndex++;
         });
         
+        // Toggle Group
+        $(document).on('click', '.wm-toggle-group', function() {
+            var group = $(this).closest('.wm-download-group');
+            group.toggleClass('collapsed');
+            group.find('.wm-download-group__episodes').toggleClass('collapsed');
+        });
+        
+        // Remove Group
+        $(document).on('click', '.wm-remove-group', function() {
+            if (confirm('<?php _e('Are you sure you want to remove this download group?', 'wave-movies'); ?>')) {
+                $(this).closest('.wm-download-group').remove();
+            }
+        });
+        
+        // Add Episode
+        $(document).on('click', '.wm-add-episode', function() {
+            var group = $(this).closest('.wm-download-group');
+            var gIndex = group.data('group-index');
+            var tbody = group.find('.wm-episodes-body');
+            var epIndex = tbody.find('tr').length;
+            
+            var episodeRow = `
+                <tr class="wm-episode-row">
+                    <td class="wm-episode-number">${epIndex + 1}</td>
+                    <td>
+                        <input type="text" 
+                               name="wm_download_groups[${gIndex}][episodes][${epIndex}][title]" 
+                               placeholder="<?php _e('Episode title...', 'wave-movies'); ?>"
+                               class="regular-text">
+                    </td>
+                    <td>
+                        <input type="url" 
+                               name="wm_download_groups[${gIndex}][episodes][${epIndex}][link]" 
+                               placeholder="https://..."
+                               class="regular-text">
+                    </td>
+                    <td>
+                        <button type="button" class="button wm-remove-episode">
+                            <span class="dashicons dashicons-no-alt"></span>
+                        </button>
+                    </td>
+                </tr>`;
+            
+            tbody.append(episodeRow);
+        });
+        
+        // Remove Episode
         $(document).on('click', '.wm-remove-episode', function() {
+            var tbody = $(this).closest('tbody');
             $(this).closest('tr').remove();
-            updateNumbers();
+            updateEpisodeNumbers(tbody);
         });
         
-        function updateNumbers() {
-            $('#wm-episodes-body tr').each(function(i) {
+        function updateEpisodeNumbers(tbody) {
+            tbody.find('tr').each(function(i) {
                 $(this).find('.wm-episode-number').text(i + 1);
             });
         }
@@ -443,20 +575,31 @@ function wave_movies_save_series_meta($post_id) {
         update_post_meta($post_id, '_wm_screenshots', $screenshots);
     }
     
-    // Save episodes
-    if (isset($_POST['wm_episodes']) && is_array($_POST['wm_episodes'])) {
-        $episodes = array();
-        foreach ($_POST['wm_episodes'] as $episode) {
-            if (!empty($episode['title']) || !empty($episode['link'])) {
-                $episodes[] = array(
-                    'title' => sanitize_text_field($episode['title']),
-                    'link' => esc_url_raw($episode['link']),
+    // Save download groups
+    if (isset($_POST['wm_download_groups']) && is_array($_POST['wm_download_groups'])) {
+        $download_groups = array();
+        foreach ($_POST['wm_download_groups'] as $group) {
+            if (!empty($group['name'])) {
+                $episodes = array();
+                if (!empty($group['episodes']) && is_array($group['episodes'])) {
+                    foreach ($group['episodes'] as $episode) {
+                        if (!empty($episode['title']) || !empty($episode['link'])) {
+                            $episodes[] = array(
+                                'title' => sanitize_text_field($episode['title']),
+                                'link' => esc_url_raw($episode['link']),
+                            );
+                        }
+                    }
+                }
+                $download_groups[] = array(
+                    'name' => sanitize_text_field($group['name']),
+                    'episodes' => $episodes,
                 );
             }
         }
-        update_post_meta($post_id, '_wm_episodes', $episodes);
+        update_post_meta($post_id, '_wm_download_groups', $download_groups);
     } else {
-        delete_post_meta($post_id, '_wm_episodes');
+        delete_post_meta($post_id, '_wm_download_groups');
     }
     
     // Save info fields
@@ -622,10 +765,13 @@ function wave_movies_get_recent($count = 10) {
 }
 
 /**
- * Episodes Page URL Helper
+ * Episodes Page URL Helper - with group index
  */
-function wave_movies_get_episodes_url($series_id) {
-    return add_query_arg('episodes', $series_id, get_permalink($series_id));
+function wave_movies_get_episodes_url($series_id, $group_index = 0) {
+    return add_query_arg(array(
+        'episodes' => $series_id,
+        'group' => $group_index
+    ), get_permalink($series_id));
 }
 
 /**
@@ -637,6 +783,14 @@ function wave_movies_get_download_url($link) {
         return add_query_arg('link', urlencode($link), get_permalink($download_page->ID));
     }
     return $link;
+}
+
+/**
+ * Get download groups for a series
+ */
+function wave_movies_get_download_groups($series_id) {
+    $groups = get_post_meta($series_id, '_wm_download_groups', true);
+    return is_array($groups) ? $groups : array();
 }
 
 /**
@@ -669,8 +823,14 @@ add_filter('manage_series_posts_columns', 'wave_movies_series_columns');
 function wave_movies_series_column_content($column, $post_id) {
     switch ($column) {
         case 'episodes':
-            $episodes = get_post_meta($post_id, '_wm_episodes', true);
-            echo is_array($episodes) ? count($episodes) : 0;
+            $groups = wave_movies_get_download_groups($post_id);
+            $total_episodes = 0;
+            foreach ($groups as $group) {
+                if (!empty($group['episodes'])) {
+                    $total_episodes += count($group['episodes']);
+                }
+            }
+            echo $total_episodes . ' (' . count($groups) . ' ' . __('groups', 'wave-movies') . ')';
             break;
         case 'views':
             echo intval(get_post_meta($post_id, '_wm_view_count', true));
@@ -703,9 +863,26 @@ function wave_movies_customize_register($wp_customize) {
 add_action('customize_register', 'wave_movies_customize_register');
 
 /**
- * Helper function to get episodes for a series
+ * Helper function to get episodes for a series (legacy support + group support)
  */
-function wave_movies_get_episodes($series_id) {
+function wave_movies_get_episodes($series_id, $group_index = null) {
+    // New structure: download groups
+    $groups = wave_movies_get_download_groups($series_id);
+    if (!empty($groups)) {
+        if ($group_index !== null && isset($groups[$group_index])) {
+            return isset($groups[$group_index]['episodes']) ? $groups[$group_index]['episodes'] : array();
+        }
+        // Return all episodes from all groups if no specific group
+        $all_episodes = array();
+        foreach ($groups as $group) {
+            if (!empty($group['episodes'])) {
+                $all_episodes = array_merge($all_episodes, $group['episodes']);
+            }
+        }
+        return $all_episodes;
+    }
+    
+    // Legacy fallback
     $episodes = get_post_meta($series_id, '_wm_episodes', true);
     return is_array($episodes) ? $episodes : array();
 }
@@ -716,4 +893,12 @@ function wave_movies_get_episodes($series_id) {
 function wave_movies_get_screenshots($series_id) {
     $screenshots = get_post_meta($series_id, '_wm_screenshots', true);
     return is_array($screenshots) ? $screenshots : array();
+}
+
+/**
+ * Helper function to get a specific download group
+ */
+function wave_movies_get_download_group($series_id, $group_index) {
+    $groups = wave_movies_get_download_groups($series_id);
+    return isset($groups[$group_index]) ? $groups[$group_index] : null;
 }
