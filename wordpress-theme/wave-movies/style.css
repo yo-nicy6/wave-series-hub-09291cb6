@@ -763,75 +763,120 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   Theme Switcher (Floating Button)
+   Theme Switcher (Professional Floating Button)
    ========================================================================== */
 
 .wm-theme-switcher {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 24px;
+    right: 24px;
     z-index: 1000;
-    cursor: grab;
-}
-
-.wm-theme-switcher:active {
-    cursor: grabbing;
 }
 
 .wm-theme-switcher__btn {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: var(--wm-gradient-primary);
-    border: 3px solid var(--wm-text);
-    box-shadow: var(--wm-shadow-lg), 0 0 20px var(--wm-primary-glow);
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--wm-radius-lg);
+    background: var(--wm-surface);
+    border: 1px solid var(--wm-border);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all var(--wm-transition-fast);
-    animation: wm-float 3s ease-in-out infinite;
+    transition: all var(--wm-transition-normal);
+    backdrop-filter: blur(8px);
 }
 
 .wm-theme-switcher__btn:hover {
-    transform: scale(1.1);
-    box-shadow: var(--wm-shadow-lg), 0 0 30px var(--wm-primary-glow);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    border-color: var(--wm-primary);
 }
 
-.wm-theme-switcher__btn svg {
-    width: 24px;
-    height: 24px;
-    fill: var(--wm-text);
+.wm-theme-switcher__btn:active {
+    transform: translateY(0);
+}
+
+.wm-theme-switcher__btn .wm-theme-icon {
+    width: 20px;
+    height: 20px;
+    stroke: var(--wm-text-muted);
+    transition: stroke var(--wm-transition-fast);
+}
+
+.wm-theme-switcher__btn:hover .wm-theme-icon {
+    stroke: var(--wm-primary);
+}
+
+.wm-theme-indicator {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--wm-primary);
+    box-shadow: 0 0 6px var(--wm-primary-glow);
 }
 
 .wm-theme-menu {
     position: absolute;
-    bottom: 70px;
+    bottom: calc(100% + 12px);
     right: 0;
     background: var(--wm-surface);
     border: 1px solid var(--wm-border);
     border-radius: var(--wm-radius-lg);
-    padding: var(--wm-spacing-sm);
     display: none;
     flex-direction: column;
-    gap: var(--wm-spacing-xs);
-    min-width: 140px;
-    box-shadow: var(--wm-shadow-lg);
+    min-width: 180px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    overflow: hidden;
+    backdrop-filter: blur(16px);
 }
 
 .wm-theme-menu.active {
     display: flex;
-    animation: wm-scale-in 0.2s ease;
+    animation: wm-slide-up 0.2s ease;
+}
+
+@keyframes wm-slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.wm-theme-menu__header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--wm-border);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--wm-text-muted);
+}
+
+.wm-theme-menu__options {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .wm-theme-option {
     display: flex;
     align-items: center;
-    gap: var(--wm-spacing-sm);
-    padding: var(--wm-spacing-sm) var(--wm-spacing-md);
+    gap: 12px;
+    padding: 10px 12px;
     border-radius: var(--wm-radius-md);
     cursor: pointer;
-    transition: background var(--wm-transition-fast);
+    transition: all var(--wm-transition-fast);
     border: none;
     background: transparent;
     color: var(--wm-text);
@@ -845,26 +890,44 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .wm-theme-option.active {
-    background: var(--wm-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.wm-theme-label {
+    flex: 1;
+    font-weight: 500;
+}
+
+.wm-theme-check {
+    width: 16px;
+    height: 16px;
+    stroke: var(--wm-primary);
+    opacity: 0;
+    transition: opacity var(--wm-transition-fast);
+}
+
+.wm-theme-option.active .wm-theme-check {
+    opacity: 1;
 }
 
 .wm-theme-swatch {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 2px solid var(--wm-border);
+    width: 24px;
+    height: 24px;
+    border-radius: var(--wm-radius-sm);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .wm-theme-swatch--red {
-    background: linear-gradient(135deg, #e50914, #831010);
+    background: linear-gradient(135deg, #e50914 0%, #831010 100%);
 }
 
 .wm-theme-swatch--blue {
-    background: linear-gradient(135deg, #0066ff, #003d99);
+    background: linear-gradient(135deg, #0066ff 0%, #003d99 100%);
 }
 
 .wm-theme-swatch--purple {
-    background: linear-gradient(135deg, #9333ea, #581c87);
+    background: linear-gradient(135deg, #9333ea 0%, #581c87 100%);
 }
 
 /* ==========================================================================

@@ -25,28 +25,42 @@
     </div>
 </footer>
 
-<!-- Theme Switcher -->
+<!-- Theme Switcher (Professional Design) -->
 <div class="wm-theme-switcher" id="wm-theme-switcher">
-    <button class="wm-theme-switcher__btn wm-tap-animate" id="wm-theme-toggle" aria-label="<?php esc_attr_e('Switch Theme', 'wave-movies'); ?>">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="5"></circle>
-            <path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"></path>
+    <button class="wm-theme-switcher__btn" id="wm-theme-toggle" aria-label="<?php esc_attr_e('Switch Theme', 'wave-movies'); ?>">
+        <svg class="wm-theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
         </svg>
+        <span class="wm-theme-indicator"></span>
     </button>
     
     <div class="wm-theme-menu" id="wm-theme-menu">
-        <button class="wm-theme-option active" data-theme="red">
-            <span class="wm-theme-swatch wm-theme-swatch--red"></span>
-            <?php _e('Red / Black', 'wave-movies'); ?>
-        </button>
-        <button class="wm-theme-option" data-theme="blue">
-            <span class="wm-theme-swatch wm-theme-swatch--blue"></span>
-            <?php _e('Blue / Dark', 'wave-movies'); ?>
-        </button>
-        <button class="wm-theme-option" data-theme="purple">
-            <span class="wm-theme-swatch wm-theme-swatch--purple"></span>
-            <?php _e('Purple / Dark', 'wave-movies'); ?>
-        </button>
+        <div class="wm-theme-menu__header">
+            <span><?php _e('Theme', 'wave-movies'); ?></span>
+        </div>
+        <div class="wm-theme-menu__options">
+            <button class="wm-theme-option active" data-theme="red">
+                <span class="wm-theme-swatch wm-theme-swatch--red"></span>
+                <span class="wm-theme-label"><?php _e('Crimson', 'wave-movies'); ?></span>
+                <svg class="wm-theme-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </button>
+            <button class="wm-theme-option" data-theme="blue">
+                <span class="wm-theme-swatch wm-theme-swatch--blue"></span>
+                <span class="wm-theme-label"><?php _e('Ocean', 'wave-movies'); ?></span>
+                <svg class="wm-theme-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </button>
+            <button class="wm-theme-option" data-theme="purple">
+                <span class="wm-theme-swatch wm-theme-swatch--purple"></span>
+                <span class="wm-theme-label"><?php _e('Violet', 'wave-movies'); ?></span>
+                <svg class="wm-theme-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </button>
+        </div>
     </div>
 </div>
 
