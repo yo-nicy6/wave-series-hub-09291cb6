@@ -97,17 +97,37 @@ $show_episodes = isset($_GET['episodes']) && $_GET['episodes'] == get_the_ID();
                             <?php the_content(); ?>
                         </div>
                         
-                        <!-- Episodes Button -->
-                        <?php if (!empty($episodes)) : ?>
-                            <div class="wm-mt-lg">
-                                <a href="<?php echo esc_url(wave_movies_get_episodes_url(get_the_ID())); ?>" class="wm-btn wm-btn--lg wm-tap-animate">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                        <polyline points="7 10 12 15 17 10"></polyline>
-                                        <line x1="12" y1="15" x2="12" y2="3"></line>
-                                    </svg>
-                                    <?php _e('Download / Open Episodes', 'wave-movies'); ?>
-                                </a>
+                        <!-- Download Groups Buttons -->
+                        <?php 
+                        $download_groups = wave_movies_get_download_groups(get_the_ID());
+                        if (!empty($download_groups)) : 
+                        ?>
+                            <div class="wm-download-groups wm-mt-lg">
+                                <h3 class="wm-download-groups__title" style="margin-bottom: 1rem; color: var(--wm-text-muted); font-size: 1rem;">
+                                    <?php _e('Download Links', 'wave-movies'); ?>
+                                </h3>
+                                <div class="wm-download-groups__list">
+                                    <?php foreach ($download_groups as $index => $group) : ?>
+                                        <div class="wm-download-group-item wm-scroll-animate" style="margin-bottom: 1rem; text-align: center;">
+                                            <p class="wm-download-group-item__name" style="color: var(--wm-text); margin-bottom: 0.5rem; font-weight: 500;">
+                                                <?php echo esc_html($group['name']); ?>
+                                                <span style="color: var(--wm-primary); font-weight: 600;">
+                                                    [<?php printf(_n('%d Ep', '%d Eps', count($group['episodes']), 'wave-movies'), count($group['episodes'])); ?>]
+                                                </span>
+                                            </p>
+                                            <a href="<?php echo esc_url(wave_movies_get_episodes_url(get_the_ID(), $index)); ?>" 
+                                               class="wm-btn wm-btn--download wm-tap-animate"
+                                               style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--wm-primary); padding: 0.75rem 2rem; border-radius: var(--wm-radius-lg);">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                                </svg>
+                                                <?php _e('Download Links', 'wave-movies'); ?>
+                                            </a>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
                             </div>
                         <?php endif; ?>
                     </div>

@@ -78,33 +78,70 @@ In the **Series Information** sidebar box:
 
 ---
 
-## How to Add Episodes & Download Links
+## How to Add Download Groups & Episodes
 
-This is done **within the Series edit page** - all episodes are managed in one place!
+This system allows you to add **multiple download buttons** (e.g., different quality versions like 480p, 720p, 1080p) with each having its own episode list. Everything is managed **within the Series edit page**!
 
-### Adding Episodes
+### Understanding Download Groups
+
+A **Download Group** represents a quality variant of your series. For example:
+- `Stranger Things 480p [250MB/E]`
+- `Stranger Things 720p [480MB/E]`
+- `Stranger Things 1080p [1.5GB/E]`
+
+Each group has:
+- A **Name** (displayed on the download button)
+- Its own **Episode List** with individual download links
+
+### Adding Download Groups
 
 1. Edit your Series post
 2. Scroll to **Episodes & Download Links** meta box
-3. Click **Add Episode**
-4. Fill in:
-   - **Episode Title**: e.g., "Pilot" or "Episode 1 - The Beginning"
-   - **Download Link**: Paste the full URL (e.g., `https://example.com/download/ep1`)
-5. Repeat for each episode
-6. Click **Update** to save
+3. Click **Add Download Group**
+4. Enter a descriptive name, e.g., `720p Hindi-English [480MB/E]`
 
-### Episode Display
+### Adding Episodes to a Download Group
 
-- Episodes appear on the series detail page via the "Download / Open Episodes" button
-- Each episode shows as: `[Number] [Title] — [Download Button]`
-- Download buttons redirect through the styled Download page
+1. Inside the download group, click **Add Episode**
+2. Fill in:
+   - **Episode Title**: e.g., "Episode 1" or "S01E01 - Pilot"
+   - **Download Link**: Paste the full URL
+3. Repeat for each episode
+4. Click **Update** to save
 
-### Editing Episodes
+### How It Displays
 
-1. Go to **Series → Edit** for the series
-2. Modify episode titles or links directly
-3. Remove episodes by clicking the trash icon
-4. Reorder by removing and re-adding (order follows the list order)
+- On the series page, each download group shows as a separate button with the group name
+- When users click a download button, they're taken to a **dynamically generated episodes page** for that specific quality
+- Each episodes page shows only the episodes from that download group
+- Users can switch between quality versions using the "Other Quality Versions" section
+
+### Example Structure
+
+```
+Breaking Bad (Series)
+├── Download Group: "480p [250MB/E]"
+│   ├── Episode 1 → https://link1.com/480p/ep1
+│   ├── Episode 2 → https://link1.com/480p/ep2
+│   └── Episode 3 → https://link1.com/480p/ep3
+│
+├── Download Group: "720p [500MB/E]"
+│   ├── Episode 1 → https://link1.com/720p/ep1
+│   ├── Episode 2 → https://link1.com/720p/ep2
+│   └── Episode 3 → https://link1.com/720p/ep3
+│
+└── Download Group: "1080p [1.2GB/E]"
+    ├── Episode 1 → https://link1.com/1080p/ep1
+    ├── Episode 2 → https://link1.com/1080p/ep2
+    └── Episode 3 → https://link1.com/1080p/ep3
+```
+
+### Managing Download Groups
+
+- **Collapse/Expand**: Click the arrow button to hide/show episodes
+- **Remove Group**: Click the trash icon (confirms before deleting)
+- **Remove Episode**: Click the X button on any episode row
+- **Reorder**: Remove and re-add groups/episodes as needed
 
 ---
 
