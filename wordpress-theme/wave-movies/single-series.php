@@ -42,7 +42,7 @@ $show_episodes = isset($_GET['group']);
                             $year = get_post_meta(get_the_ID(), '_wm_year', true);
                             $rating = get_post_meta(get_the_ID(), '_wm_rating', true);
                             $status = get_post_meta(get_the_ID(), '_wm_status', true);
-                            $episodes = wave_movies_get_episodes(get_the_ID());
+                            $episode_count = get_post_meta(get_the_ID(), '_wm_episode_count', true);
                             ?>
                             
                             <?php if ($year) : ?>
@@ -70,9 +70,9 @@ $show_episodes = isset($_GET['group']);
                                 </span>
                             <?php endif; ?>
                             
-                            <?php if (!empty($episodes)) : ?>
+                            <?php if ($episode_count) : ?>
                                 <span class="wm-badge" style="background: var(--wm-surface); padding: 0.5rem 1rem; border-radius: var(--wm-radius-full); border: 1px solid var(--wm-border);">
-                                    🎬 <?php printf(_n('%d Episode', '%d Episodes', count($episodes), 'wave-movies'), count($episodes)); ?>
+                                    🎬 <?php printf(_n('%d Episode', '%d Episodes', intval($episode_count), 'wave-movies'), intval($episode_count)); ?>
                                 </span>
                             <?php endif; ?>
                         </div>
