@@ -325,6 +325,21 @@ function wave_movies_episodes_meta_box($post) {
                         </div>
                         
                         <div class="wm-download-group__episodes">
+                            <!-- Season Zip Field -->
+                            <div class="wm-season-zip-field" style="margin-bottom: 15px; padding: 12px; background: #e8f5e9; border: 1px solid #4caf50; border-radius: 4px;">
+                                <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #2e7d32;">
+                                    <span class="dashicons dashicons-archive" style="vertical-align: middle;"></span>
+                                    <?php _e('Season Zip Link (Optional)', 'wave-movies'); ?>
+                                </label>
+                                <input type="url" 
+                                       name="wm_download_groups[<?php echo $group_index; ?>][season_zip]" 
+                                       value="<?php echo esc_url(isset($group['season_zip']) ? $group['season_zip'] : ''); ?>" 
+                                       placeholder="<?php _e('https://... (Full season download link)', 'wave-movies'); ?>"
+                                       class="regular-text"
+                                       style="width: 100%;">
+                                <span class="description" style="color: #666; font-size: 12px;"><?php _e('Add a single download link for the entire season zip', 'wave-movies'); ?></span>
+                            </div>
+                            
                             <table class="widefat wm-episodes-table">
                                 <thead>
                                     <tr>
@@ -435,6 +450,18 @@ function wave_movies_episodes_meta_box($post) {
                         </button>
                     </div>
                     <div class="wm-download-group__episodes">
+                        <div class="wm-season-zip-field" style="margin-bottom: 15px; padding: 12px; background: #e8f5e9; border: 1px solid #4caf50; border-radius: 4px;">
+                            <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #2e7d32;">
+                                <span class="dashicons dashicons-archive" style="vertical-align: middle;"></span>
+                                <?php _e('Season Zip Link (Optional)', 'wave-movies'); ?>
+                            </label>
+                            <input type="url" 
+                                   name="wm_download_groups[${groupIndex}][season_zip]" 
+                                   placeholder="<?php _e('https://... (Full season download link)', 'wave-movies'); ?>"
+                                   class="regular-text"
+                                   style="width: 100%;">
+                            <span class="description" style="color: #666; font-size: 12px;"><?php _e('Add a single download link for the entire season zip', 'wave-movies'); ?></span>
+                        </div>
                         <table class="widefat wm-episodes-table">
                             <thead>
                                 <tr>
@@ -600,6 +627,7 @@ function wave_movies_save_series_meta($post_id) {
                 }
                 $download_groups[] = array(
                     'name' => sanitize_text_field($group['name']),
+                    'season_zip' => isset($group['season_zip']) ? esc_url_raw($group['season_zip']) : '',
                     'episodes' => $episodes,
                 );
             }
