@@ -71,13 +71,13 @@ $series_query = new WP_Query($args);
                             <div class="wm-series-card__meta">
                                 <?php
                                 $year = get_post_meta(get_the_ID(), '_wm_year', true);
-                                $episodes = wave_movies_get_episodes(get_the_ID());
+                                $episode_count = get_post_meta(get_the_ID(), '_wm_episode_count', true);
                                 ?>
                                 <?php if ($year) : ?>
                                     <span><?php echo esc_html($year); ?></span>
                                 <?php endif; ?>
-                                <?php if (!empty($episodes)) : ?>
-                                    <span> • <?php printf(_n('%d Episode', '%d Episodes', count($episodes), 'wave-movies'), count($episodes)); ?></span>
+                                <?php if ($episode_count) : ?>
+                                    <span> • <?php printf(_n('%d Episode', '%d Episodes', intval($episode_count), 'wave-movies'), intval($episode_count)); ?></span>
                                 <?php endif; ?>
                             </div>
                         </div>

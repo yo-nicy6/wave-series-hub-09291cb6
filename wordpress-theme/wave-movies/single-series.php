@@ -9,8 +9,8 @@
 
 get_header();
 
-// Check if viewing episodes
-$show_episodes = isset($_GET['episodes']) && $_GET['episodes'] == get_the_ID();
+// Check if viewing episodes for a specific download group
+$show_episodes = isset($_GET['group']);
 ?>
 
 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>

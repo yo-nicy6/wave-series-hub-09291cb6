@@ -1100,37 +1100,230 @@ h1, h2, h3, h4, h5, h6 {
    ========================================================================== */
 
 @media (max-width: 768px) {
+    /* Scale down overall sizing for mobile */
+    html {
+        font-size: 14px;
+    }
+    
     .wm-header__inner {
         padding: 0 var(--wm-spacing-sm);
     }
     
+    /* Logo scaling */
+    .wm-logo {
+        font-size: clamp(1.5rem, 4vw, 2rem);
+    }
+    
+    .wm-logo__icon {
+        font-size: 1em;
+    }
+    
+    .wm-logo__icon img,
+    .wm-logo__icon svg {
+        width: 32px;
+        height: 32px;
+    }
+    
+    /* Search bar */
+    .wm-search {
+        max-width: 100%;
+    }
+    
+    .wm-search__input {
+        padding: var(--wm-spacing-sm) var(--wm-spacing-md);
+        font-size: 0.875rem;
+    }
+    
+    .wm-search__btn {
+        padding: var(--wm-spacing-sm) var(--wm-spacing-md);
+    }
+    
+    /* Feature buttons */
     .wm-features {
         width: 100%;
+        gap: var(--wm-spacing-sm);
     }
     
     .wm-feature-btn {
         flex: 1;
-        min-width: 100px;
+        min-width: 80px;
         justify-content: center;
+        padding: var(--wm-spacing-xs) var(--wm-spacing-sm);
+        font-size: 0.8rem;
     }
     
+    /* Series grid cards */
+    .wm-series-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--wm-spacing-sm);
+    }
+    
+    .wm-series-card__content {
+        padding: var(--wm-spacing-sm);
+    }
+    
+    .wm-series-card__title {
+        font-size: 0.85rem;
+    }
+    
+    .wm-series-card__meta {
+        font-size: 0.75rem;
+    }
+    
+    /* Single series page */
+    .wm-series-hero {
+        gap: var(--wm-spacing-md);
+    }
+    
+    .wm-series-poster {
+        max-width: 200px;
+        margin: 0 auto;
+    }
+    
+    .wm-series-info__title {
+        font-size: clamp(1.5rem, 4vw, 2rem);
+        text-align: center;
+    }
+    
+    .wm-series-info__description {
+        font-size: 0.95rem;
+    }
+    
+    .wm-badge {
+        font-size: 0.75rem !important;
+        padding: 0.35rem 0.75rem !important;
+    }
+    
+    /* Screenshots */
+    .wm-screenshots__grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Episodes */
     .wm-episode-item {
         flex-direction: column;
-        gap: var(--wm-spacing-md);
+        gap: var(--wm-spacing-sm);
         text-align: center;
+        padding: var(--wm-spacing-md);
     }
     
     .wm-episode-item__info {
         flex-direction: column;
     }
     
+    .wm-episode-item__number {
+        width: 32px;
+        height: 32px;
+        font-size: 0.875rem;
+    }
+    
+    .wm-episode-item__title {
+        font-size: 0.9rem;
+    }
+    
+    .wm-episode-item__download {
+        padding: var(--wm-spacing-xs) var(--wm-spacing-md);
+        font-size: 0.85rem;
+    }
+    
+    /* Buttons */
+    .wm-btn {
+        padding: var(--wm-spacing-sm) var(--wm-spacing-md);
+        font-size: 0.9rem;
+    }
+    
+    .wm-btn--lg {
+        padding: var(--wm-spacing-md) var(--wm-spacing-lg);
+        font-size: 1rem;
+    }
+    
+    /* Download section */
+    .wm-download-section {
+        padding: 1rem !important;
+        margin-top: 1.5rem !important;
+    }
+    
+    .wm-download-group-item {
+        padding: 0.75rem !important;
+    }
+    
+    .wm-download-group-item__name {
+        font-size: 0.95rem !important;
+    }
+    
+    /* Theme switcher */
     .wm-theme-switcher {
-        bottom: 15px;
-        right: 15px;
+        bottom: 10px;
+        right: 10px;
     }
     
     .wm-theme-switcher__btn {
-        width: 48px;
-        height: 48px;
+        width: 42px;
+        height: 42px;
+    }
+    
+    /* Typography */
+    .wm-title-xl {
+        font-size: clamp(1.75rem, 5vw, 2.5rem);
+    }
+    
+    .wm-title-lg {
+        font-size: clamp(1.25rem, 4vw, 1.75rem);
+    }
+    
+    .wm-title-md {
+        font-size: clamp(1rem, 3vw, 1.25rem);
+    }
+    
+    /* Container padding */
+    .wm-container {
+        padding: 0 var(--wm-spacing-sm);
+    }
+    
+    /* Section spacing */
+    .wm-section {
+        padding: var(--wm-spacing-xl) 0;
+    }
+    
+    .wm-single-series {
+        padding: var(--wm-spacing-lg) 0;
+    }
+    
+    /* Footer */
+    .wm-footer {
+        padding: var(--wm-spacing-lg) 0;
+    }
+    
+    .wm-footer__brand {
+        font-size: 1.25rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    html {
+        font-size: 13px;
+    }
+    
+    .wm-series-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--wm-spacing-xs);
+    }
+    
+    .wm-series-card__content {
+        padding: var(--wm-spacing-xs);
+    }
+    
+    .wm-series-card__title {
+        font-size: 0.8rem;
+    }
+    
+    .wm-feature-btn {
+        font-size: 0.75rem;
+        padding: var(--wm-spacing-xs) var(--wm-spacing-xs);
+    }
+    
+    .wm-logo {
+        font-size: 1.25rem;
     }
 }
