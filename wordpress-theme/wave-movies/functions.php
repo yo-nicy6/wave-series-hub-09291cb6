@@ -530,6 +530,7 @@ function wave_movies_info_meta_box($post) {
     $year = get_post_meta($post->ID, '_wm_year', true);
     $rating = get_post_meta($post->ID, '_wm_rating', true);
     $status = get_post_meta($post->ID, '_wm_status', true);
+    $episode_count = get_post_meta($post->ID, '_wm_episode_count', true);
     ?>
     <p>
         <label for="wm_year"><strong><?php _e('Release Year', 'wave-movies'); ?></strong></label><br>
@@ -548,6 +549,12 @@ function wave_movies_info_meta_box($post) {
             <option value="completed" <?php selected($status, 'completed'); ?>><?php _e('Completed', 'wave-movies'); ?></option>
             <option value="upcoming" <?php selected($status, 'upcoming'); ?>><?php _e('Upcoming', 'wave-movies'); ?></option>
         </select>
+    </p>
+    
+    <p>
+        <label for="wm_episode_count"><strong><?php _e('Total Episodes (Display)', 'wave-movies'); ?></strong></label><br>
+        <input type="number" id="wm_episode_count" name="wm_episode_count" value="<?php echo esc_attr($episode_count); ?>" min="0" class="widefat">
+        <span class="description"><?php _e('Number of episodes to display on cards (e.g., 8, 12, 24)', 'wave-movies'); ?></span>
     </p>
     <?php
 }
@@ -613,6 +620,10 @@ function wave_movies_save_series_meta($post_id) {
     
     if (isset($_POST['wm_status'])) {
         update_post_meta($post_id, '_wm_status', sanitize_text_field($_POST['wm_status']));
+    }
+    
+    if (isset($_POST['wm_episode_count'])) {
+        update_post_meta($post_id, '_wm_episode_count', intval($_POST['wm_episode_count']));
     }
 }
 add_action('save_post_series', 'wave_movies_save_series_meta');
@@ -768,10 +779,7 @@ function wave_movies_get_recent($count = 10) {
  * Episodes Page URL Helper - with group index
  */
 function wave_movies_get_episodes_url($series_id, $group_index = 0) {
-    return add_query_arg(array(
-        'episodes' => $series_id,
-        'group' => $group_index
-    ), get_permalink($series_id));
+    return add_query_arg('group', $group_index, get_permalink($series_id));
 }
 
 /**

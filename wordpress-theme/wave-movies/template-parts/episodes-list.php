@@ -2,18 +2,31 @@
 /**
  * Episodes List Template Part
  *
- * Displays the episodes list with download links.
+ * Displays the episodes list for a SPECIFIC download group.
+ * Each download button leads to its own separate page with only that group's episodes.
  *
  * @package Wave-Movies
  */
 
-$episodes = wave_movies_get_episodes(get_the_ID());
+// Get group index from URL
+$group_index = isset($_GET['group']) ? intval($_GET['group']) : 0;
+
+// Get the specific download group
+$group = wave_movies_get_download_group(get_the_ID(), $group_index);
+$episodes = $group ? (isset($group['episodes']) ? $group['episodes'] : array()) : array();
+$group_name = $group ? $group['name'] : __('Episodes', 'wave-movies');
+
+// Get all download groups for switching
+$all_groups = wave_movies_get_download_groups(get_the_ID());
 ?>
 
 <section class="wm-episodes">
     <div class="wm-container">
         <div class="wm-episodes__header wm-scroll-animate">
             <h1 class="wm-episodes__title wm-title-lg"><?php the_title(); ?></h1>
+            <p class="wm-episodes__group-name" style="color: var(--wm-primary); font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">
+                <?php echo esc_html($group_name); ?>
+            </p>
             <p class="wm-episodes__subtitle">
                 <?php printf(_n('%d Episode Available', '%d Episodes Available', count($episodes), 'wave-movies'), count($episodes)); ?>
             </p>
@@ -61,6 +74,27 @@ $episodes = wave_movies_get_episodes(get_the_ID());
         <?php else : ?>
             <div class="wm-no-results">
                 <p><?php _e('No episodes available yet. Check back soon!', 'wave-movies'); ?></p>
+            </div>
+        <?php endif; ?>
+        
+        <!-- Other Quality Versions -->
+        <?php if (count($all_groups) > 1) : ?>
+            <div class="wm-other-qualities wm-scroll-animate" style="margin-top: 2rem; padding: 1.5rem; background: var(--wm-surface); border-radius: var(--wm-radius-lg); border: 1px solid var(--wm-border);">
+                <h3 style="text-align: center; margin-bottom: 1rem; color: var(--wm-text-muted); font-size: 0.9rem; font-weight: 500;">
+                    <?php _e('Other Qualities Available', 'wave-movies'); ?>
+                </h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center;">
+                    <?php foreach ($all_groups as $idx => $other_group) : ?>
+                        <?php if ($idx !== $group_index) : ?>
+                            <a href="<?php echo esc_url(wave_movies_get_episodes_url(get_the_ID(), $idx)); ?>" 
+                               class="wm-btn wm-btn--outline wm-tap-animate"
+                               style="font-size: 0.875rem; padding: 0.5rem 1rem;">
+                                <?php echo esc_html($other_group['name']); ?>
+                                <span style="opacity: 0.7;">(<?php echo count($other_group['episodes']); ?> Eps)</span>
+                            </a>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
         <?php endif; ?>
         
