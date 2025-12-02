@@ -75,14 +75,21 @@ Tags: dark, entertainment, series, movies, download, responsive, custom-colors
     --wm-card-glow-hover: rgba(100, 200, 255, 0.25);
 }
 
-/* Purple/Dark Theme */
-[data-theme="purple"] {
-    --wm-primary: #9333ea;
-    --wm-primary-hover: #a855f7;
-    --wm-primary-glow: rgba(147, 51, 234, 0.4);
-    --wm-secondary: #581c87;
-    --wm-card-glow: rgba(192, 132, 252, 0.15);
-    --wm-card-glow-hover: rgba(192, 132, 252, 0.25);
+/* Theme transition for smooth switching */
+html {
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+html.wm-theme-transitioning,
+html.wm-theme-transitioning *,
+html.wm-theme-transitioning *::before,
+html.wm-theme-transitioning *::after {
+    transition: background-color 0.4s ease, 
+                color 0.4s ease, 
+                border-color 0.4s ease, 
+                box-shadow 0.4s ease,
+                fill 0.4s ease,
+                stroke 0.4s ease !important;
 }
 
 /* ==========================================================================
@@ -523,6 +530,31 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
+   Badges
+   ========================================================================== */
+
+.wm-badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: var(--wm-radius-full);
+    background: var(--wm-primary);
+    color: var(--wm-text);
+}
+
+.wm-badge--movie {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: #000;
+}
+
+.wm-badge--series {
+    background: var(--wm-gradient-primary);
+}
+
+/* ==========================================================================
    Episodes Page
    ========================================================================== */
 
@@ -612,7 +644,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   Season Zip Download Button
+   Season Zip Download Button (Theme-matched)
    ========================================================================== */
 
 .wm-season-zip {
@@ -625,15 +657,15 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     gap: var(--wm-spacing-lg);
     padding: var(--wm-spacing-md) var(--wm-spacing-xl);
-    background: linear-gradient(135deg, #1a472a 0%, #0d2818 100%);
-    border: 2px solid #2e7d32;
+    background: var(--wm-gradient-primary);
+    border: 2px solid var(--wm-primary);
     border-radius: var(--wm-radius-lg);
-    color: #4caf50;
+    color: var(--wm-text);
     text-decoration: none;
     transition: all var(--wm-transition-normal);
     position: relative;
     overflow: hidden;
-    box-shadow: 0 4px 20px rgba(76, 175, 80, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px var(--wm-primary-glow), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .wm-season-zip__btn::before {
@@ -643,7 +675,7 @@ h1, h2, h3, h4, h5, h6 {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
     transition: left 0.5s;
 }
 
@@ -652,10 +684,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .wm-season-zip__btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(76, 175, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    border-color: #4caf50;
-    background: linear-gradient(135deg, #1e5631 0%, #103520 100%);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 30px var(--wm-primary-glow), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-color: var(--wm-primary-hover);
 }
 
 .wm-season-zip__icon {
@@ -664,9 +695,9 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
     width: 50px;
     height: 50px;
-    background: rgba(76, 175, 80, 0.15);
+    background: rgba(255, 255, 255, 0.15);
     border-radius: var(--wm-radius-md);
-    color: #66bb6a;
+    color: var(--wm-text);
 }
 
 .wm-season-zip__content {
@@ -678,13 +709,14 @@ h1, h2, h3, h4, h5, h6 {
 .wm-season-zip__title {
     font-size: 1.1rem;
     font-weight: 700;
-    color: #81c784;
+    color: var(--wm-text);
     letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 .wm-season-zip__desc {
     font-size: 0.85rem;
-    color: #a5d6a7;
+    color: var(--wm-text);
     opacity: 0.8;
 }
 
@@ -694,15 +726,15 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
     width: 44px;
     height: 44px;
-    background: #2e7d32;
+    background: rgba(255, 255, 255, 0.15);
     border-radius: var(--wm-radius-full);
-    color: white;
+    color: var(--wm-text);
     margin-left: var(--wm-spacing-md);
     transition: all var(--wm-transition-fast);
 }
 
 .wm-season-zip__btn:hover .wm-season-zip__download {
-    background: #4caf50;
+    background: var(--wm-primary-hover);
     transform: scale(1.1);
 }
 

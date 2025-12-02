@@ -11,16 +11,17 @@
                 <?php echo esc_html(get_theme_mod('wm_footer_text', __('© 2024 Wave-Movies. All rights reserved. Your ultimate destination for series downloads.', 'wave-movies'))); ?>
             </p>
             
-            <div class="wm-footer__links">
-                <?php
-                $about_page = get_page_by_path('about');
-                if ($about_page) : ?>
-                    <a href="<?php echo get_permalink($about_page->ID); ?>"><?php _e('About', 'wave-movies'); ?></a>
-                <?php endif; ?>
-                
-                <a href="<?php echo get_post_type_archive_link('series'); ?>"><?php _e('Series', 'wave-movies'); ?></a>
-                <a href="<?php echo esc_url(home_url('/?s=')); ?>"><?php _e('Search', 'wave-movies'); ?></a>
-            </div>
+        <div class="wm-footer__links">
+            <?php
+            $about_page = get_page_by_path('about');
+            if ($about_page) : ?>
+                <a href="<?php echo get_permalink($about_page->ID); ?>"><?php _e('About', 'wave-movies'); ?></a>
+            <?php endif; ?>
+            
+            <a href="<?php echo get_post_type_archive_link('series'); ?>"><?php _e('Series', 'wave-movies'); ?></a>
+            <a href="<?php echo get_post_type_archive_link('movie'); ?>"><?php _e('Movies', 'wave-movies'); ?></a>
+            <a href="<?php echo esc_url(home_url('/?s=')); ?>"><?php _e('Search', 'wave-movies'); ?></a>
+        </div>
         </div>
     </div>
 </footer>
@@ -49,13 +50,6 @@
             <button class="wm-theme-option" data-theme="blue">
                 <span class="wm-theme-swatch wm-theme-swatch--blue"></span>
                 <span class="wm-theme-label"><?php _e('Ocean', 'wave-movies'); ?></span>
-                <svg class="wm-theme-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-            </button>
-            <button class="wm-theme-option" data-theme="purple">
-                <span class="wm-theme-swatch wm-theme-swatch--purple"></span>
-                <span class="wm-theme-label"><?php _e('Violet', 'wave-movies'); ?></span>
                 <svg class="wm-theme-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="20 6 9 17 4 12"></polyline>
                 </svg>

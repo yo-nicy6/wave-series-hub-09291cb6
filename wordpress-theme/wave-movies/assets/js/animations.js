@@ -62,6 +62,14 @@
         },
         
         setTheme: function(theme) {
+            // Only allow red or blue themes
+            if (theme !== 'red' && theme !== 'blue') {
+                theme = 'red';
+            }
+            
+            // Add transition class for smooth animation
+            document.documentElement.classList.add('wm-theme-transitioning');
+            
             // Remove all theme attributes
             document.documentElement.removeAttribute('data-theme');
             
@@ -77,6 +85,11 @@
             this.options.forEach(option => {
                 option.classList.toggle('active', option.dataset.theme === theme);
             });
+            
+            // Remove transition class after animation completes
+            setTimeout(() => {
+                document.documentElement.classList.remove('wm-theme-transitioning');
+            }, 400);
         },
         
         pulseAnimation: function() {

@@ -34,35 +34,6 @@ $all_groups = wave_movies_get_download_groups(get_the_ID());
         </div>
         
         <?php if (!empty($episodes)) : ?>
-            <!-- Season Zip Download -->
-            <?php if (!empty($season_zip)) : ?>
-                <div class="wm-season-zip wm-scroll-animate" style="margin-bottom: 1.5rem;">
-                    <a href="<?php echo esc_url(wave_movies_get_download_url($season_zip)); ?>" 
-                       class="wm-season-zip__btn wm-tap-animate"
-                       target="_blank"
-                       rel="noopener noreferrer">
-                        <div class="wm-season-zip__icon">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 8v13H3V8"></path>
-                                <path d="M1 3h22v5H1z"></path>
-                                <path d="M10 12h4"></path>
-                            </svg>
-                        </div>
-                        <div class="wm-season-zip__content">
-                            <span class="wm-season-zip__title"><?php _e('Season Zip', 'wave-movies'); ?></span>
-                            <span class="wm-season-zip__desc"><?php _e('Download Complete Season', 'wave-movies'); ?></span>
-                        </div>
-                        <div class="wm-season-zip__download">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                <polyline points="7 10 12 15 17 10"></polyline>
-                                <line x1="12" y1="15" x2="12" y2="3"></line>
-                            </svg>
-                        </div>
-                    </a>
-                </div>
-            <?php endif; ?>
-            
             <div class="wm-episodes-list wm-stagger">
                 <?php foreach ($episodes as $index => $episode) : ?>
                     <div class="wm-episode-item wm-scroll-animate">
@@ -101,6 +72,35 @@ $all_groups = wave_movies_get_download_groups(get_the_ID());
                     </div>
                 <?php endforeach; ?>
             </div>
+            
+            <!-- Season Zip Download - Below Episodes -->
+            <?php if (!empty($season_zip)) : ?>
+                <div class="wm-season-zip wm-scroll-animate" style="margin-top: 1.5rem;">
+                    <a href="<?php echo esc_url(wave_movies_get_download_url($season_zip)); ?>" 
+                       class="wm-season-zip__btn wm-tap-animate"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        <div class="wm-season-zip__icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 8v13H3V8"></path>
+                                <path d="M1 3h22v5H1z"></path>
+                                <path d="M10 12h4"></path>
+                            </svg>
+                        </div>
+                        <div class="wm-season-zip__content">
+                            <span class="wm-season-zip__title"><?php _e('Season Zip', 'wave-movies'); ?></span>
+                            <span class="wm-season-zip__desc"><?php _e('Download Complete Season', 'wave-movies'); ?></span>
+                        </div>
+                        <div class="wm-season-zip__download">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            <?php endif; ?>
         <?php else : ?>
             <div class="wm-no-results">
                 <p><?php _e('No episodes available yet. Check back soon!', 'wave-movies'); ?></p>
