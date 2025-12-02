@@ -24,7 +24,7 @@
                     <input type="search" 
                            class="wm-search__input" 
                            name="s" 
-                           placeholder="<?php esc_attr_e('Search series...', 'wave-movies'); ?>" 
+                           placeholder="<?php esc_attr_e('Search series & movies...', 'wave-movies'); ?>" 
                            value="<?php echo get_search_query(); ?>"
                            aria-label="<?php esc_attr_e('Search', 'wave-movies'); ?>">
                     <button type="submit" class="wm-search__btn wm-tap-animate">
@@ -51,20 +51,23 @@
                     </a>
                 <?php endif; ?>
                 
-                <a href="<?php echo esc_url(add_query_arg('orderby', 'date', get_post_type_archive_link('series'))); ?>" class="wm-feature-btn wm-tap-animate">
+                <a href="<?php echo get_post_type_archive_link('series'); ?>" class="wm-feature-btn wm-tap-animate">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <polyline points="12 6 12 12 16 14"></polyline>
+                        <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+                        <line x1="7" y1="2" x2="7" y2="22"></line>
+                        <line x1="17" y1="2" x2="17" y2="22"></line>
                     </svg>
-                    <?php _e('Recent', 'wave-movies'); ?>
+                    <?php _e('Series', 'wave-movies'); ?>
                 </a>
                 
-                <a href="<?php echo esc_url(add_query_arg('orderby', 'views', get_post_type_archive_link('series'))); ?>" class="wm-feature-btn wm-tap-animate">
+                <a href="<?php echo get_post_type_archive_link('movie'); ?>" class="wm-feature-btn wm-tap-animate">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                        <circle cx="12" cy="12" r="3"></circle>
+                        <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+                        <line x1="7" y1="2" x2="7" y2="22"></line>
+                        <line x1="17" y1="2" x2="17" y2="22"></line>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
                     </svg>
-                    <?php _e('Most Viewed', 'wave-movies'); ?>
+                    <?php _e('Movies', 'wave-movies'); ?>
                 </a>
             </nav>
         </div>

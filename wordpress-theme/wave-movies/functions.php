@@ -938,3 +938,381 @@ function wave_movies_get_download_group($series_id, $group_index) {
     $groups = wave_movies_get_download_groups($series_id);
     return isset($groups[$group_index]) ? $groups[$group_index] : null;
 }
+
+/**
+ * Register Movies Custom Post Type
+ */
+function wave_movies_register_movies_cpt() {
+    $labels = array(
+        'name'               => _x('Movies', 'post type general name', 'wave-movies'),
+        'singular_name'      => _x('Movie', 'post type singular name', 'wave-movies'),
+        'menu_name'          => _x('Movies', 'admin menu', 'wave-movies'),
+        'add_new'            => _x('Add New', 'movie', 'wave-movies'),
+        'add_new_item'       => __('Add New Movie', 'wave-movies'),
+        'new_item'           => __('New Movie', 'wave-movies'),
+        'edit_item'          => __('Edit Movie', 'wave-movies'),
+        'view_item'          => __('View Movie', 'wave-movies'),
+        'all_items'          => __('All Movies', 'wave-movies'),
+        'search_items'       => __('Search Movies', 'wave-movies'),
+        'not_found'          => __('No movies found.', 'wave-movies'),
+        'not_found_in_trash' => __('No movies found in Trash.', 'wave-movies'),
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => array('slug' => 'movies'),
+        'capability_type'    => 'post',
+        'has_archive'        => true,
+        'hierarchical'       => false,
+        'menu_position'      => 6,
+        'menu_icon'          => 'dashicons-video-alt2',
+        'supports'           => array('title', 'editor', 'thumbnail', 'excerpt'),
+        'show_in_rest'       => true,
+    );
+
+    register_post_type('movie', $args);
+}
+add_action('init', 'wave_movies_register_movies_cpt');
+
+/**
+ * Add Movies Meta Boxes
+ */
+function wave_movies_add_movie_meta_boxes() {
+    add_meta_box(
+        'wm_movie_screenshots',
+        __('Screenshots Gallery', 'wave-movies'),
+        'wave_movies_movie_screenshots_meta_box',
+        'movie',
+        'normal',
+        'high'
+    );
+    
+    add_meta_box(
+        'wm_movie_downloads',
+        __('Download Links', 'wave-movies'),
+        'wave_movies_movie_downloads_meta_box',
+        'movie',
+        'normal',
+        'high'
+    );
+    
+    add_meta_box(
+        'wm_movie_info',
+        __('Movie Information', 'wave-movies'),
+        'wave_movies_movie_info_meta_box',
+        'movie',
+        'side',
+        'default'
+    );
+}
+add_action('add_meta_boxes', 'wave_movies_add_movie_meta_boxes');
+
+/**
+ * Movie Screenshots Meta Box Callback
+ */
+function wave_movies_movie_screenshots_meta_box($post) {
+    wp_nonce_field('wm_movie_screenshots_nonce', 'wm_movie_screenshots_nonce_field');
+    $screenshots = get_post_meta($post->ID, '_wm_movie_screenshots', true);
+    ?>
+    <div class="wm-screenshots-uploader">
+        <p><?php _e('Add screenshots for this movie. Click "Add Screenshots" to upload or select images.', 'wave-movies'); ?></p>
+        
+        <div id="wm-movie-screenshots-container" class="wm-screenshots-grid">
+            <?php if (!empty($screenshots) && is_array($screenshots)) : ?>
+                <?php foreach ($screenshots as $attachment_id) : ?>
+                    <div class="wm-screenshot-item" data-id="<?php echo esc_attr($attachment_id); ?>">
+                        <?php echo wp_get_attachment_image($attachment_id, 'thumbnail'); ?>
+                        <button type="button" class="wm-remove-screenshot">&times;</button>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+        
+        <input type="hidden" name="wm_movie_screenshots" id="wm-movie-screenshots-input" value="<?php echo esc_attr(is_array($screenshots) ? implode(',', $screenshots) : ''); ?>">
+        
+        <p>
+            <button type="button" class="button button-primary" id="wm-add-movie-screenshots">
+                <?php _e('Add Screenshots', 'wave-movies'); ?>
+            </button>
+        </p>
+    </div>
+    
+    <style>
+        .wm-screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .wm-screenshot-item {
+            position: relative;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .wm-screenshot-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .wm-remove-screenshot {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+        }
+    </style>
+    
+    <script>
+    jQuery(document).ready(function($) {
+        var frame;
+        
+        $('#wm-add-movie-screenshots').on('click', function(e) {
+            e.preventDefault();
+            
+            if (frame) {
+                frame.open();
+                return;
+            }
+            
+            frame = wp.media({
+                title: '<?php _e('Select Screenshots', 'wave-movies'); ?>',
+                button: { text: '<?php _e('Add Screenshots', 'wave-movies'); ?>' },
+                multiple: true
+            });
+            
+            frame.on('select', function() {
+                var attachments = frame.state().get('selection').toJSON();
+                var ids = $('#wm-movie-screenshots-input').val() ? $('#wm-movie-screenshots-input').val().split(',') : [];
+                
+                attachments.forEach(function(attachment) {
+                    if (ids.indexOf(attachment.id.toString()) === -1) {
+                        ids.push(attachment.id);
+                        var thumb = attachment.sizes.thumbnail ? attachment.sizes.thumbnail.url : attachment.url;
+                        $('#wm-movie-screenshots-container').append(
+                            '<div class="wm-screenshot-item" data-id="' + attachment.id + '">' +
+                            '<img src="' + thumb + '">' +
+                            '<button type="button" class="wm-remove-screenshot">&times;</button>' +
+                            '</div>'
+                        );
+                    }
+                });
+                
+                $('#wm-movie-screenshots-input').val(ids.join(','));
+            });
+            
+            frame.open();
+        });
+        
+        $(document).on('click', '#wm-movie-screenshots-container .wm-remove-screenshot', function() {
+            var item = $(this).closest('.wm-screenshot-item');
+            var id = item.data('id').toString();
+            var ids = $('#wm-movie-screenshots-input').val().split(',').filter(function(i) { return i !== id; });
+            $('#wm-movie-screenshots-input').val(ids.join(','));
+            item.remove();
+        });
+    });
+    </script>
+    <?php
+}
+
+/**
+ * Movie Downloads Meta Box Callback
+ */
+function wave_movies_movie_downloads_meta_box($post) {
+    wp_nonce_field('wm_movie_downloads_nonce', 'wm_movie_downloads_nonce_field');
+    $download_links = get_post_meta($post->ID, '_wm_movie_downloads', true);
+    if (!is_array($download_links)) {
+        $download_links = array();
+    }
+    ?>
+    <div class="wm-movie-downloads-manager">
+        <p><?php _e('Add download links for different qualities (e.g., 480p, 720p, 1080p). When users click these buttons, they will be redirected directly to the download link.', 'wave-movies'); ?></p>
+        
+        <div id="wm-movie-downloads-container">
+            <?php if (!empty($download_links)) : ?>
+                <?php foreach ($download_links as $index => $link_data) : ?>
+                    <div class="wm-movie-download-row" style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">
+                        <input type="text" 
+                               name="wm_movie_downloads[<?php echo $index; ?>][name]" 
+                               value="<?php echo esc_attr($link_data['name']); ?>" 
+                               placeholder="<?php _e('e.g., 480p [400MB] or 1080p BluRay', 'wave-movies'); ?>"
+                               class="regular-text"
+                               style="flex: 1;">
+                        <input type="url" 
+                               name="wm_movie_downloads[<?php echo $index; ?>][link]" 
+                               value="<?php echo esc_url($link_data['link']); ?>" 
+                               placeholder="https://..."
+                               class="regular-text"
+                               style="flex: 2;">
+                        <button type="button" class="button wm-remove-movie-download">
+                            <span class="dashicons dashicons-trash" style="color: #dc3545;"></span>
+                        </button>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+        
+        <p style="margin-top: 15px;">
+            <button type="button" class="button button-primary" id="wm-add-movie-download">
+                <span class="dashicons dashicons-plus-alt2" style="vertical-align: middle;"></span>
+                <?php _e('Add Download Link', 'wave-movies'); ?>
+            </button>
+        </p>
+    </div>
+    
+    <script>
+    jQuery(document).ready(function($) {
+        var downloadIndex = <?php echo count($download_links); ?>;
+        
+        $('#wm-add-movie-download').on('click', function() {
+            var rowHtml = `
+                <div class="wm-movie-download-row" style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">
+                    <input type="text" 
+                           name="wm_movie_downloads[${downloadIndex}][name]" 
+                           placeholder="<?php _e('e.g., 480p [400MB] or 1080p BluRay', 'wave-movies'); ?>"
+                           class="regular-text"
+                           style="flex: 1;">
+                    <input type="url" 
+                           name="wm_movie_downloads[${downloadIndex}][link]" 
+                           placeholder="https://..."
+                           class="regular-text"
+                           style="flex: 2;">
+                    <button type="button" class="button wm-remove-movie-download">
+                        <span class="dashicons dashicons-trash" style="color: #dc3545;"></span>
+                    </button>
+                </div>`;
+            
+            $('#wm-movie-downloads-container').append(rowHtml);
+            downloadIndex++;
+        });
+        
+        $(document).on('click', '.wm-remove-movie-download', function() {
+            $(this).closest('.wm-movie-download-row').remove();
+        });
+    });
+    </script>
+    <?php
+}
+
+/**
+ * Movie Info Meta Box Callback
+ */
+function wave_movies_movie_info_meta_box($post) {
+    wp_nonce_field('wm_movie_info_nonce', 'wm_movie_info_nonce_field');
+    $year = get_post_meta($post->ID, '_wm_movie_year', true);
+    $rating = get_post_meta($post->ID, '_wm_movie_rating', true);
+    $duration = get_post_meta($post->ID, '_wm_movie_duration', true);
+    ?>
+    <p>
+        <label for="wm_movie_year"><strong><?php _e('Release Year', 'wave-movies'); ?></strong></label><br>
+        <input type="number" id="wm_movie_year" name="wm_movie_year" value="<?php echo esc_attr($year); ?>" min="1900" max="2099" class="widefat">
+    </p>
+    
+    <p>
+        <label for="wm_movie_rating"><strong><?php _e('Rating (1-10)', 'wave-movies'); ?></strong></label><br>
+        <input type="number" id="wm_movie_rating" name="wm_movie_rating" value="<?php echo esc_attr($rating); ?>" min="1" max="10" step="0.1" class="widefat">
+    </p>
+    
+    <p>
+        <label for="wm_movie_duration"><strong><?php _e('Duration (minutes)', 'wave-movies'); ?></strong></label><br>
+        <input type="number" id="wm_movie_duration" name="wm_movie_duration" value="<?php echo esc_attr($duration); ?>" min="1" class="widefat">
+        <span class="description"><?php _e('e.g., 120 for 2 hours', 'wave-movies'); ?></span>
+    </p>
+    <?php
+}
+
+/**
+ * Save Movie Meta Data
+ */
+function wave_movies_save_movie_meta($post_id) {
+    // Verify nonces
+    if (!isset($_POST['wm_movie_screenshots_nonce_field']) || !wp_verify_nonce($_POST['wm_movie_screenshots_nonce_field'], 'wm_movie_screenshots_nonce')) {
+        return;
+    }
+    
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+    
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+    
+    // Save screenshots
+    if (isset($_POST['wm_movie_screenshots'])) {
+        $screenshots = array_filter(array_map('intval', explode(',', sanitize_text_field($_POST['wm_movie_screenshots']))));
+        update_post_meta($post_id, '_wm_movie_screenshots', $screenshots);
+    }
+    
+    // Save download links
+    if (isset($_POST['wm_movie_downloads']) && is_array($_POST['wm_movie_downloads'])) {
+        $download_links = array();
+        foreach ($_POST['wm_movie_downloads'] as $link_data) {
+            if (!empty($link_data['name']) && !empty($link_data['link'])) {
+                $download_links[] = array(
+                    'name' => sanitize_text_field($link_data['name']),
+                    'link' => esc_url_raw($link_data['link']),
+                );
+            }
+        }
+        update_post_meta($post_id, '_wm_movie_downloads', $download_links);
+    } else {
+        delete_post_meta($post_id, '_wm_movie_downloads');
+    }
+    
+    // Save info fields
+    if (isset($_POST['wm_movie_year'])) {
+        update_post_meta($post_id, '_wm_movie_year', intval($_POST['wm_movie_year']));
+    }
+    
+    if (isset($_POST['wm_movie_rating'])) {
+        update_post_meta($post_id, '_wm_movie_rating', floatval($_POST['wm_movie_rating']));
+    }
+    
+    if (isset($_POST['wm_movie_duration'])) {
+        update_post_meta($post_id, '_wm_movie_duration', intval($_POST['wm_movie_duration']));
+    }
+}
+add_action('save_post_movie', 'wave_movies_save_movie_meta');
+
+/**
+ * Get movie downloads
+ */
+function wave_movies_get_movie_downloads($movie_id) {
+    $downloads = get_post_meta($movie_id, '_wm_movie_downloads', true);
+    return is_array($downloads) ? $downloads : array();
+}
+
+/**
+ * Get movie screenshots
+ */
+function wave_movies_get_movie_screenshots($movie_id) {
+    $screenshots = get_post_meta($movie_id, '_wm_movie_screenshots', true);
+    return is_array($screenshots) ? $screenshots : array();
+}
+
+/**
+ * Update search to include movies
+ */
+function wave_movies_search_filter_update($query) {
+    if (!is_admin() && $query->is_main_query() && $query->is_search()) {
+        $query->set('post_type', array('series', 'movie'));
+    }
+    return $query;
+}
+remove_filter('pre_get_posts', 'wave_movies_search_filter');
+add_filter('pre_get_posts', 'wave_movies_search_filter_update');
