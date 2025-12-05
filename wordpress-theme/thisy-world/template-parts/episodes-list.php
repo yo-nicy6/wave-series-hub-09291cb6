@@ -5,20 +5,20 @@
  * Displays the episodes list for a SPECIFIC download group.
  * Each download button leads to its own separate page with only that group's episodes.
  *
- * @package Wave-Movies
+ * @package Thisy-World
  */
 
 // Get group index from URL
 $group_index = isset($_GET['group']) ? intval($_GET['group']) : 0;
 
 // Get the specific download group
-$group = wave_movies_get_download_group(get_the_ID(), $group_index);
+$group = thisy_world_get_download_group(get_the_ID(), $group_index);
 $episodes = $group ? (isset($group['episodes']) ? $group['episodes'] : array()) : array();
-$group_name = $group ? $group['name'] : __('Episodes', 'wave-movies');
+$group_name = $group ? $group['name'] : __('Episodes', 'thisy-world');
 $season_zip = $group && isset($group['season_zip']) ? $group['season_zip'] : '';
 
 // Get all download groups for switching
-$all_groups = wave_movies_get_download_groups(get_the_ID());
+$all_groups = thisy_world_get_download_groups(get_the_ID());
 ?>
 
 <section class="wm-episodes">
@@ -29,7 +29,7 @@ $all_groups = wave_movies_get_download_groups(get_the_ID());
                 <?php echo esc_html($group_name); ?>
             </p>
             <p class="wm-episodes__subtitle">
-                <?php printf(_n('%d Episode Available', '%d Episodes Available', count($episodes), 'wave-movies'), count($episodes)); ?>
+                <?php printf(_n('%d Episode Available', '%d Episodes Available', count($episodes), 'thisy-world'), count($episodes)); ?>
             </p>
         </div>
         
@@ -46,14 +46,14 @@ $all_groups = wave_movies_get_download_groups(get_the_ID());
                                 if (!empty($episode['title'])) {
                                     echo esc_html($episode['title']);
                                 } else {
-                                    printf(__('Episode %d', 'wave-movies'), $index + 1);
+                                    printf(__('Episode %d', 'thisy-world'), $index + 1);
                                 }
                                 ?>
                             </div>
                         </div>
                         
                         <?php if (!empty($episode['link'])) : ?>
-                            <a href="<?php echo esc_url(wave_movies_get_download_url($episode['link'])); ?>" 
+                            <a href="<?php echo esc_url(thisy_world_get_download_url($episode['link'])); ?>" 
                                class="wm-episode-item__download wm-tap-animate"
                                target="_blank"
                                rel="noopener noreferrer">
@@ -62,11 +62,11 @@ $all_groups = wave_movies_get_download_groups(get_the_ID());
                                     <polyline points="7 10 12 15 17 10"></polyline>
                                     <line x1="12" y1="15" x2="12" y2="3"></line>
                                 </svg>
-                                <?php _e('Download', 'wave-movies'); ?>
+                                <?php _e('Download', 'thisy-world'); ?>
                             </a>
                         <?php else : ?>
                             <span class="wm-episode-item__download" style="opacity: 0.5; cursor: not-allowed;">
-                                <?php _e('Coming Soon', 'wave-movies'); ?>
+                                <?php _e('Coming Soon', 'thisy-world'); ?>
                             </span>
                         <?php endif; ?>
                     </div>
@@ -76,7 +76,7 @@ $all_groups = wave_movies_get_download_groups(get_the_ID());
             <!-- Season Zip Download - Below Episodes -->
             <?php if (!empty($season_zip)) : ?>
                 <div class="wm-season-zip wm-scroll-animate" style="margin-top: 1.5rem;">
-                    <a href="<?php echo esc_url(wave_movies_get_download_url($season_zip)); ?>" 
+                    <a href="<?php echo esc_url(thisy_world_get_download_url($season_zip)); ?>" 
                        class="wm-season-zip__btn wm-tap-animate"
                        target="_blank"
                        rel="noopener noreferrer">
@@ -88,8 +88,8 @@ $all_groups = wave_movies_get_download_groups(get_the_ID());
                             </svg>
                         </div>
                         <div class="wm-season-zip__content">
-                            <span class="wm-season-zip__title"><?php _e('Season Zip', 'wave-movies'); ?></span>
-                            <span class="wm-season-zip__desc"><?php _e('Download Complete Season', 'wave-movies'); ?></span>
+                            <span class="wm-season-zip__title"><?php _e('Season Zip', 'thisy-world'); ?></span>
+                            <span class="wm-season-zip__desc"><?php _e('Download Complete Season', 'thisy-world'); ?></span>
                         </div>
                         <div class="wm-season-zip__download">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -103,7 +103,7 @@ $all_groups = wave_movies_get_download_groups(get_the_ID());
             <?php endif; ?>
         <?php else : ?>
             <div class="wm-no-results">
-                <p><?php _e('No episodes available yet. Check back soon!', 'wave-movies'); ?></p>
+                <p><?php _e('No episodes available yet. Check back soon!', 'thisy-world'); ?></p>
             </div>
         <?php endif; ?>
         
@@ -111,12 +111,12 @@ $all_groups = wave_movies_get_download_groups(get_the_ID());
         <?php if (count($all_groups) > 1) : ?>
             <div class="wm-other-qualities wm-scroll-animate" style="margin-top: 2rem; padding: 1.5rem; background: var(--wm-surface); border-radius: var(--wm-radius-lg); border: 1px solid var(--wm-border);">
                 <h3 style="text-align: center; margin-bottom: 1rem; color: var(--wm-text-muted); font-size: 0.9rem; font-weight: 500;">
-                    <?php _e('Other Qualities Available', 'wave-movies'); ?>
+                    <?php _e('Other Qualities Available', 'thisy-world'); ?>
                 </h3>
                 <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center;">
                     <?php foreach ($all_groups as $idx => $other_group) : ?>
                         <?php if ($idx !== $group_index) : ?>
-                            <a href="<?php echo esc_url(wave_movies_get_episodes_url(get_the_ID(), $idx)); ?>" 
+                            <a href="<?php echo esc_url(thisy_world_get_episodes_url(get_the_ID(), $idx)); ?>" 
                                class="wm-btn wm-btn--outline wm-tap-animate"
                                style="font-size: 0.875rem; padding: 0.5rem 1rem;">
                                 <?php echo esc_html($other_group['name']); ?>
@@ -134,7 +134,7 @@ $all_groups = wave_movies_get_download_groups(get_the_ID());
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M19 12H5M12 19l-7-7 7-7"></path>
                 </svg>
-                <?php _e('Back to Series', 'wave-movies'); ?>
+                <?php _e('Back to Series', 'thisy-world'); ?>
             </a>
         </div>
     </div>

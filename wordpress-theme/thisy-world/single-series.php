@@ -4,7 +4,7 @@
  *
  * Displays individual series with poster, description, screenshots, and episodes button.
  *
- * @package Wave-Movies
+ * @package Thisy-World
  */
 
 get_header();
@@ -61,9 +61,9 @@ $show_episodes = isset($_GET['group']);
                                 <span class="wm-badge" style="background: var(--wm-primary); padding: 0.5rem 1rem; border-radius: var(--wm-radius-full);">
                                     <?php
                                     $status_labels = array(
-                                        'ongoing' => __('Ongoing', 'wave-movies'),
-                                        'completed' => __('Completed', 'wave-movies'),
-                                        'upcoming' => __('Upcoming', 'wave-movies'),
+                                        'ongoing' => __('Ongoing', 'thisy-world'),
+                                        'completed' => __('Completed', 'thisy-world'),
+                                        'upcoming' => __('Upcoming', 'thisy-world'),
                                     );
                                     echo esc_html($status_labels[$status] ?? $status);
                                     ?>
@@ -72,7 +72,7 @@ $show_episodes = isset($_GET['group']);
                             
                             <?php if ($episode_count) : ?>
                                 <span class="wm-badge" style="background: var(--wm-surface); padding: 0.5rem 1rem; border-radius: var(--wm-radius-full); border: 1px solid var(--wm-border);">
-                                    🎬 <?php printf(_n('%d Episode', '%d Episodes', intval($episode_count), 'wave-movies'), intval($episode_count)); ?>
+                                    🎬 <?php printf(_n('%d Episode', '%d Episodes', intval($episode_count), 'thisy-world'), intval($episode_count)); ?>
                                 </span>
                             <?php endif; ?>
                         </div>
@@ -101,10 +101,10 @@ $show_episodes = isset($_GET['group']);
                 
                 <!-- Screenshots Gallery -->
                 <?php
-                $screenshots = wave_movies_get_screenshots(get_the_ID());
+                $screenshots = thisy_world_get_screenshots(get_the_ID());
                 if (!empty($screenshots)) : ?>
                     <div class="wm-screenshots wm-scroll-animate">
-                        <h2 class="wm-screenshots__title wm-title-md"><?php _e('Screenshots', 'wave-movies'); ?></h2>
+                        <h2 class="wm-screenshots__title wm-title-md"><?php _e('Screenshots', 'thisy-world'); ?></h2>
                         <div class="wm-screenshots__grid wm-stagger">
                             <?php foreach ($screenshots as $attachment_id) : ?>
                                 <div class="wm-screenshot">
@@ -117,12 +117,12 @@ $show_episodes = isset($_GET['group']);
                 
                 <!-- Download Groups Buttons (Below Screenshots) -->
                 <?php 
-                $download_groups = wave_movies_get_download_groups(get_the_ID());
+                $download_groups = thisy_world_get_download_groups(get_the_ID());
                 if (!empty($download_groups)) : 
                 ?>
                     <div class="wm-download-section wm-scroll-animate" style="margin-top: 3rem; padding: 2rem; background: var(--wm-surface); border-radius: var(--wm-radius-lg); border: 1px solid var(--wm-border);">
                         <h2 class="wm-title-md" style="text-align: center; margin-bottom: 2rem;">
-                            <?php _e('Download Links', 'wave-movies'); ?>
+                            <?php _e('Download Links', 'thisy-world'); ?>
                         </h2>
                         <div class="wm-download-groups__list" style="display: flex; flex-direction: column; gap: 1.5rem;">
                             <?php foreach ($download_groups as $index => $group) : ?>
@@ -130,10 +130,10 @@ $show_episodes = isset($_GET['group']);
                                     <p class="wm-download-group-item__name" style="color: var(--wm-text); margin-bottom: 0.75rem; font-weight: 500; font-size: 1.1rem;">
                                         <?php echo esc_html($group['name']); ?>
                                         <span style="color: var(--wm-primary); font-weight: 600;">
-                                            [<?php printf(_n('%d Ep', '%d Eps', count($group['episodes']), 'wave-movies'), count($group['episodes'])); ?>]
+                                            [<?php printf(_n('%d Ep', '%d Eps', count($group['episodes']), 'thisy-world'), count($group['episodes'])); ?>]
                                         </span>
                                     </p>
-                                    <a href="<?php echo esc_url(wave_movies_get_episodes_url(get_the_ID(), $index)); ?>" 
+                                    <a href="<?php echo esc_url(thisy_world_get_episodes_url(get_the_ID(), $index)); ?>" 
                                        class="wm-btn wm-btn--download wm-tap-animate"
                                        style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--wm-primary); padding: 0.75rem 2rem; border-radius: var(--wm-radius-lg);">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -141,7 +141,7 @@ $show_episodes = isset($_GET['group']);
                                             <polyline points="7 10 12 15 17 10"></polyline>
                                             <line x1="12" y1="15" x2="12" y2="3"></line>
                                         </svg>
-                                        <?php _e('Download Links', 'wave-movies'); ?>
+                                        <?php _e('Download Links', 'thisy-world'); ?>
                                     </a>
                                 </div>
                             <?php endforeach; ?>
@@ -155,7 +155,7 @@ $show_episodes = isset($_GET['group']);
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M19 12H5M12 19l-7-7 7-7"></path>
                         </svg>
-                        <?php _e('Back to Home', 'wave-movies'); ?>
+                        <?php _e('Back to Home', 'thisy-world'); ?>
                     </a>
                 </div>
             </div>

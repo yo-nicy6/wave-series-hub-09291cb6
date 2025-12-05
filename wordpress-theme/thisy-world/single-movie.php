@@ -2,7 +2,7 @@
 /**
  * Single Movie Template
  *
- * @package Wave-Movies
+ * @package Thisy-World
  */
 
 get_header();
@@ -11,8 +11,8 @@ get_header();
 $year = get_post_meta(get_the_ID(), '_wm_movie_year', true);
 $rating = get_post_meta(get_the_ID(), '_wm_movie_rating', true);
 $duration = get_post_meta(get_the_ID(), '_wm_movie_duration', true);
-$screenshots = wave_movies_get_movie_screenshots(get_the_ID());
-$downloads = wave_movies_get_movie_downloads(get_the_ID());
+$screenshots = thisy_world_get_movie_screenshots(get_the_ID());
+$downloads = thisy_world_get_movie_downloads(get_the_ID());
 
 // Format duration
 $duration_formatted = '';
@@ -51,7 +51,7 @@ if ($duration) {
             </div>
             
             <div class="wm-series-info">
-                <span class="wm-badge wm-badge--movie"><?php _e('Movie', 'wave-movies'); ?></span>
+                <span class="wm-badge wm-badge--movie"><?php _e('Movie', 'thisy-world'); ?></span>
                 
                 <h1 class="wm-series-info__title"><?php the_title(); ?></h1>
                 
@@ -103,12 +103,12 @@ if ($duration) {
                                 <polyline points="7 10 12 15 17 10"></polyline>
                                 <line x1="12" y1="15" x2="12" y2="3"></line>
                             </svg>
-                            <?php _e('Download Movie', 'wave-movies'); ?>
+                            <?php _e('Download Movie', 'thisy-world'); ?>
                         </h3>
                         
                         <div class="wm-movie-downloads" style="display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center;">
                             <?php foreach ($downloads as $download) : ?>
-                                <a href="<?php echo esc_url(wave_movies_get_download_url($download['link'])); ?>" 
+                                <a href="<?php echo esc_url(thisy_world_get_download_url($download['link'])); ?>" 
                                    class="wm-btn wm-tap-animate"
                                    target="_blank"
                                    rel="noopener noreferrer"
@@ -130,7 +130,7 @@ if ($duration) {
         <!-- Screenshots Gallery -->
         <?php if (!empty($screenshots)) : ?>
             <div class="wm-screenshots wm-scroll-animate">
-                <h2 class="wm-screenshots__title wm-title-md"><?php _e('Screenshots', 'wave-movies'); ?></h2>
+                <h2 class="wm-screenshots__title wm-title-md"><?php _e('Screenshots', 'thisy-world'); ?></h2>
                 <div class="wm-screenshots__grid wm-stagger">
                     <?php foreach ($screenshots as $screenshot_id) : ?>
                         <div class="wm-screenshot-card">
@@ -147,7 +147,7 @@ if ($duration) {
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M19 12H5M12 19l-7-7 7-7"></path>
                 </svg>
-                <?php _e('Back to Movies', 'wave-movies'); ?>
+                <?php _e('Back to Movies', 'thisy-world'); ?>
             </a>
         </div>
     </div>
