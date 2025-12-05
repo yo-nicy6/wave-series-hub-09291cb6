@@ -2,7 +2,7 @@
 /**
  * Search Results Template
  *
- * @package Wave-Movies
+ * @package Thisy-World
  */
 
 get_header();
@@ -12,7 +12,7 @@ get_header();
     <div class="wm-container">
         <div class="wm-search-page__header wm-scroll-animate">
             <h1 class="wm-title-lg">
-                <?php printf(__('Search Results for: "%s"', 'wave-movies'), get_search_query()); ?>
+                <?php printf(__('Search Results for: "%s"', 'thisy-world'), get_search_query()); ?>
             </h1>
         </div>
         
@@ -22,10 +22,10 @@ get_header();
                 <input type="search" 
                        class="wm-search__input" 
                        name="s" 
-                       placeholder="<?php esc_attr_e('Search again...', 'wave-movies'); ?>" 
+                       placeholder="<?php esc_attr_e('Search again...', 'thisy-world'); ?>" 
                        value="<?php echo get_search_query(); ?>">
                 <button type="submit" class="wm-search__btn wm-tap-animate">
-                    <?php _e('Search', 'wave-movies'); ?>
+                    <?php _e('Search', 'thisy-world'); ?>
                 </button>
             </form>
         </div>
@@ -34,7 +34,7 @@ get_header();
         <div class="wm-search-results wm-mt-xl">
             <?php if (have_posts()) : ?>
                 <p class="wm-text-center wm-text-muted wm-mb-lg wm-scroll-animate">
-                    <?php printf(_n('%d result found', '%d results found', $wp_query->found_posts, 'wave-movies'), $wp_query->found_posts); ?>
+                    <?php printf(_n('%d result found', '%d results found', $wp_query->found_posts, 'thisy-world'), $wp_query->found_posts); ?>
                 </p>
                 
                 <div class="wm-series-grid wm-stagger">
@@ -73,19 +73,19 @@ get_header();
                 <div class="wm-pagination wm-mt-xl" style="text-align: center;">
                     <?php
                     the_posts_pagination(array(
-                        'prev_text' => '&laquo; ' . __('Previous', 'wave-movies'),
-                        'next_text' => __('Next', 'wave-movies') . ' &raquo;',
+                        'prev_text' => '&laquo; ' . __('Previous', 'thisy-world'),
+                        'next_text' => __('Next', 'thisy-world') . ' &raquo;',
                     ));
                     ?>
                 </div>
                 
             <?php else : ?>
                 <div class="wm-no-results wm-scroll-animate">
-                    <p><?php _e('No series found matching your search. Try different keywords!', 'wave-movies'); ?></p>
+                    <p><?php _e('No series found matching your search. Try different keywords!', 'thisy-world'); ?></p>
                     
                     <div class="wm-mt-lg">
                         <a href="<?php echo esc_url(home_url('/')); ?>" class="wm-btn wm-tap-animate">
-                            <?php _e('Browse All Series', 'wave-movies'); ?>
+                            <?php _e('Browse All Series', 'thisy-world'); ?>
                         </a>
                     </div>
                 </div>

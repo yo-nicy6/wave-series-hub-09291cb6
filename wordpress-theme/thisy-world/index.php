@@ -2,7 +2,7 @@
 /**
  * The main template file (Home / Series Grid)
  *
- * @package Wave-Movies
+ * @package Thisy-World
  */
 
 get_header();
@@ -34,15 +34,15 @@ $series_query = new WP_Query($args);
     <div class="wm-container">
         <?php if ($orderby === 'views') : ?>
             <h1 class="wm-title-lg wm-text-center wm-mb-xl wm-scroll-animate">
-                <?php _e('Most Viewed Series', 'wave-movies'); ?>
+                <?php _e('Most Viewed Series', 'thisy-world'); ?>
             </h1>
         <?php elseif ($orderby === 'date') : ?>
             <h1 class="wm-title-lg wm-text-center wm-mb-xl wm-scroll-animate">
-                <?php _e('Recent Series', 'wave-movies'); ?>
+                <?php _e('Recent Series', 'thisy-world'); ?>
             </h1>
         <?php else : ?>
             <h1 class="wm-title-lg wm-text-center wm-mb-xl wm-scroll-animate">
-                <?php _e('All Series', 'wave-movies'); ?>
+                <?php _e('All Series', 'thisy-world'); ?>
             </h1>
         <?php endif; ?>
         
@@ -77,7 +77,7 @@ $series_query = new WP_Query($args);
                                     <span><?php echo esc_html($year); ?></span>
                                 <?php endif; ?>
                                 <?php if ($episode_count) : ?>
-                                    <span> • <?php printf(_n('%d Episode', '%d Episodes', intval($episode_count), 'wave-movies'), intval($episode_count)); ?></span>
+                                    <span> • <?php printf(_n('%d Episode', '%d Episodes', intval($episode_count), 'thisy-world'), intval($episode_count)); ?></span>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -91,8 +91,8 @@ $series_query = new WP_Query($args);
                 echo paginate_links(array(
                     'total' => $series_query->max_num_pages,
                     'current' => $paged,
-                    'prev_text' => '&laquo; ' . __('Previous', 'wave-movies'),
-                    'next_text' => __('Next', 'wave-movies') . ' &raquo;',
+                    'prev_text' => '&laquo; ' . __('Previous', 'thisy-world'),
+                    'next_text' => __('Next', 'thisy-world') . ' &raquo;',
                 ));
                 ?>
             </div>
@@ -101,7 +101,7 @@ $series_query = new WP_Query($args);
             
         <?php else : ?>
             <div class="wm-no-results">
-                <p><?php _e('No series found. Add your first series from the admin dashboard!', 'wave-movies'); ?></p>
+                <p><?php _e('No series found. Add your first series from the admin dashboard!', 'thisy-world'); ?></p>
             </div>
         <?php endif; ?>
     </div>

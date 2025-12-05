@@ -2,7 +2,7 @@
 /**
  * Archive Movies Template
  *
- * @package Wave-Movies
+ * @package Thisy-World
  */
 
 get_header();
@@ -11,8 +11,8 @@ get_header();
 <section class="wm-archive wm-section">
     <div class="wm-container">
         <div class="wm-archive-header wm-scroll-animate">
-            <h1 class="wm-title-xl"><?php _e('All Movies', 'wave-movies'); ?></h1>
-            <p class="wm-archive-subtitle"><?php _e('Browse our complete movie collection', 'wave-movies'); ?></p>
+            <h1 class="wm-title-xl"><?php _e('All Movies', 'thisy-world'); ?></h1>
+            <p class="wm-archive-subtitle"><?php _e('Browse our complete movie collection', 'thisy-world'); ?></p>
         </div>
         
         <?php if (have_posts()) : ?>
@@ -60,7 +60,7 @@ get_header();
                                 </div>
                             </div>
                             <span class="wm-badge wm-badge--movie" style="position: absolute; top: 8px; left: 8px; font-size: 0.7rem; padding: 0.25rem 0.5rem;">
-                                <?php _e('Movie', 'wave-movies'); ?>
+                                <?php _e('Movie', 'thisy-world'); ?>
                             </span>
                         </div>
                         <div class="wm-series-card__content">
@@ -87,7 +87,7 @@ get_header();
             </div>
         <?php else : ?>
             <div class="wm-no-results">
-                <p><?php _e('No movies found. Check back soon!', 'wave-movies'); ?></p>
+                <p><?php _e('No movies found. Check back soon!', 'thisy-world'); ?></p>
             </div>
         <?php endif; ?>
     </div>

@@ -1,13 +1,13 @@
 /*
-Theme Name: Wave-Movies
-Theme URI: https://wave-movies.com
-Author: Wave-Movies Team
-Author URI: https://wave-movies.com
-Description: A modern, dark series download theme with multi-theme support (Red/Black, Blue/Dark, Purple/Dark), floating theme switcher, and premium animations.
+Theme Name: Thisy-World
+Theme URI: https://thisy-world.com
+Author: Thisy-World Team
+Author URI: https://thisy-world.com
+Description: A modern, dark series download theme with multi-theme support (Red/Black, Blue/Dark), floating theme switcher, and premium animations.
 Version: 1.0.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: wave-movies
+Text Domain: thisy-world
 Tags: dark, entertainment, series, movies, download, responsive, custom-colors
 */
 
@@ -513,45 +513,17 @@ h1, h2, h3, h4, h5, h6 {
 .wm-screenshot {
     border-radius: var(--wm-radius-md);
     overflow: hidden;
-    cursor: pointer;
-    transition: all var(--wm-transition-normal);
-    box-shadow: var(--wm-shadow-md);
+    transition: transform var(--wm-transition-normal);
 }
 
 .wm-screenshot:hover {
     transform: scale(1.03);
-    box-shadow: var(--wm-shadow-glow);
 }
 
 .wm-screenshot img {
     width: 100%;
     aspect-ratio: 16/9;
     object-fit: cover;
-}
-
-/* ==========================================================================
-   Badges
-   ========================================================================== */
-
-.wm-badge {
-    display: inline-block;
-    padding: 0.4rem 1rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-radius: var(--wm-radius-full);
-    background: var(--wm-primary);
-    color: var(--wm-text);
-}
-
-.wm-badge--movie {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    color: #000;
-}
-
-.wm-badge--series {
-    background: var(--wm-gradient-primary);
 }
 
 /* ==========================================================================
@@ -563,8 +535,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .wm-episodes__header {
-    margin-bottom: var(--wm-spacing-xl);
     text-align: center;
+    margin-bottom: var(--wm-spacing-2xl);
 }
 
 .wm-episodes__title {
@@ -574,12 +546,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .wm-episodes__subtitle {
     color: var(--wm-text-muted);
+    font-size: 1.1rem;
 }
 
 .wm-episodes-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--wm-spacing-md);
     max-width: 800px;
     margin: 0 auto;
 }
@@ -591,15 +561,15 @@ h1, h2, h3, h4, h5, h6 {
     padding: var(--wm-spacing-lg);
     background: var(--wm-surface);
     border-radius: var(--wm-radius-md);
-    border: 1px solid var(--wm-border);
+    margin-bottom: var(--wm-spacing-md);
     transition: all var(--wm-transition-normal);
-    box-shadow: var(--wm-shadow-glow);
+    border: 1px solid var(--wm-border);
 }
 
 .wm-episode-item:hover {
     background: var(--wm-surface-hover);
-    border-color: var(--wm-primary);
     transform: translateX(8px);
+    box-shadow: var(--wm-shadow-md);
 }
 
 .wm-episode-item__info {
@@ -612,92 +582,63 @@ h1, h2, h3, h4, h5, h6 {
     width: 40px;
     height: 40px;
     background: var(--wm-gradient-primary);
-    border-radius: var(--wm-radius-md);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    flex-shrink: 0;
+    font-size: 0.9rem;
 }
 
 .wm-episode-item__title {
-    font-weight: 600;
+    font-weight: 500;
     color: var(--wm-text);
 }
 
 .wm-episode-item__download {
+    display: flex;
+    align-items: center;
+    gap: var(--wm-spacing-sm);
     padding: var(--wm-spacing-sm) var(--wm-spacing-lg);
     background: var(--wm-primary);
     border-radius: var(--wm-radius-full);
     color: var(--wm-text);
     font-weight: 600;
+    font-size: 0.9rem;
     transition: all var(--wm-transition-fast);
-    display: flex;
-    align-items: center;
-    gap: var(--wm-spacing-sm);
 }
 
 .wm-episode-item__download:hover {
     background: var(--wm-primary-hover);
     transform: scale(1.05);
-    box-shadow: 0 0 15px var(--wm-primary-glow);
 }
 
-/* ==========================================================================
-   Season Zip Download Button (Theme-matched)
-   ========================================================================== */
-
-.wm-season-zip {
-    display: flex;
-    justify-content: center;
-}
-
+/* Season Zip Button */
 .wm-season-zip__btn {
     display: flex;
     align-items: center;
-    gap: var(--wm-spacing-lg);
-    padding: var(--wm-spacing-md) var(--wm-spacing-xl);
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.25rem 2rem;
     background: var(--wm-gradient-primary);
-    border: 2px solid var(--wm-primary);
     border-radius: var(--wm-radius-lg);
     color: var(--wm-text);
-    text-decoration: none;
-    transition: all var(--wm-transition-normal);
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 20px var(--wm-primary-glow), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-.wm-season-zip__btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-    transition: left 0.5s;
-}
-
-.wm-season-zip__btn:hover::before {
-    left: 100%;
+    font-weight: 600;
+    transition: all var(--wm-transition-fast);
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 4px 20px var(--wm-primary-glow);
 }
 
 .wm-season-zip__btn:hover {
     transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 8px 30px var(--wm-primary-glow), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    border-color: var(--wm-primary-hover);
+    box-shadow: 0 8px 30px var(--wm-primary-glow);
 }
 
 .wm-season-zip__icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: var(--wm-radius-md);
-    color: var(--wm-text);
 }
 
 .wm-season-zip__content {
@@ -709,172 +650,17 @@ h1, h2, h3, h4, h5, h6 {
 .wm-season-zip__title {
     font-size: 1.1rem;
     font-weight: 700;
-    color: var(--wm-text);
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
 }
 
 .wm-season-zip__desc {
     font-size: 0.85rem;
-    color: var(--wm-text);
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .wm-season-zip__download {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: var(--wm-radius-full);
-    color: var(--wm-text);
-    margin-left: var(--wm-spacing-md);
-    transition: all var(--wm-transition-fast);
-}
-
-.wm-season-zip__btn:hover .wm-season-zip__download {
-    background: var(--wm-primary-hover);
-    transform: scale(1.1);
-}
-
-/* Mobile responsive for Season Zip */
-@media (max-width: 480px) {
-    .wm-season-zip__btn {
-        padding: var(--wm-spacing-sm) var(--wm-spacing-md);
-        gap: var(--wm-spacing-md);
-    }
-    
-    .wm-season-zip__icon {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .wm-season-zip__icon svg {
-        width: 22px;
-        height: 22px;
-    }
-    
-    .wm-season-zip__title {
-        font-size: 0.95rem;
-    }
-    
-    .wm-season-zip__desc {
-        font-size: 0.75rem;
-    }
-    
-    .wm-season-zip__download {
-        width: 36px;
-        height: 36px;
-    }
-    
-    .wm-season-zip__download svg {
-        width: 16px;
-        height: 16px;
-    }
-}
-
-/* ==========================================================================
-   Download Redirect Page
-   ========================================================================== */
-
-.wm-download-page {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--wm-spacing-xl);
-}
-
-.wm-download-box {
-    text-align: center;
-    padding: var(--wm-spacing-2xl);
-    background: var(--wm-surface);
-    border-radius: var(--wm-radius-xl);
-    box-shadow: var(--wm-shadow-glow);
-    max-width: 500px;
-    width: 100%;
-}
-
-.wm-download-box__icon {
-    width: 80px;
-    height: 80px;
-    background: var(--wm-gradient-primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto var(--wm-spacing-lg);
-    animation: wm-pulse 2s infinite;
-}
-
-.wm-download-box__title {
-    margin-bottom: var(--wm-spacing-md);
-    color: var(--wm-text);
-}
-
-.wm-download-box__text {
-    color: var(--wm-text-muted);
-    margin-bottom: var(--wm-spacing-lg);
-}
-
-.wm-download-box__countdown {
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--wm-primary);
-    margin-bottom: var(--wm-spacing-lg);
-}
-
-/* ==========================================================================
-   About Page
-   ========================================================================== */
-
-.wm-about {
-    padding: var(--wm-spacing-2xl) 0;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.wm-about__title {
-    text-align: center;
-    margin-bottom: var(--wm-spacing-xl);
-    color: var(--wm-text);
-}
-
-.wm-about__content {
-    background: var(--wm-surface);
-    padding: var(--wm-spacing-xl);
-    border-radius: var(--wm-radius-lg);
-    box-shadow: var(--wm-shadow-glow);
-}
-
-.wm-about__content p {
-    margin-bottom: var(--wm-spacing-md);
-    color: var(--wm-text-muted);
-    line-height: 1.8;
-}
-
-/* ==========================================================================
-   Search Page
-   ========================================================================== */
-
-.wm-search-page {
-    padding: var(--wm-spacing-2xl) 0;
-}
-
-.wm-search-page__header {
-    text-align: center;
-    margin-bottom: var(--wm-spacing-xl);
-}
-
-.wm-search-results {
-    margin-top: var(--wm-spacing-xl);
-}
-
-.wm-no-results {
-    text-align: center;
-    padding: var(--wm-spacing-2xl);
-    color: var(--wm-text-muted);
 }
 
 /* ==========================================================================
@@ -883,22 +669,22 @@ h1, h2, h3, h4, h5, h6 {
 
 .wm-footer {
     background: var(--wm-surface);
+    padding: var(--wm-spacing-2xl) 0;
     border-top: 1px solid var(--wm-border);
-    padding: var(--wm-spacing-xl) 0;
-    margin-top: auto;
+    margin-top: var(--wm-spacing-2xl);
 }
 
 .wm-footer__inner {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--wm-spacing-md);
+    gap: var(--wm-spacing-lg);
     text-align: center;
 }
 
 .wm-footer__logo {
     font-family: var(--wm-font-display);
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: var(--wm-text);
 }
 
@@ -908,12 +694,14 @@ h1, h2, h3, h4, h5, h6 {
 
 .wm-footer__text {
     color: var(--wm-text-muted);
-    font-size: 0.875rem;
+    max-width: 600px;
 }
 
 .wm-footer__links {
     display: flex;
     gap: var(--wm-spacing-lg);
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .wm-footer__links a {
@@ -925,125 +713,141 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--wm-primary);
 }
 
+.wm-footer__contact {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wm-spacing-sm);
+    align-items: center;
+    margin-top: var(--wm-spacing-md);
+}
+
+.wm-footer__contact a {
+    display: flex;
+    align-items: center;
+    gap: var(--wm-spacing-sm);
+    color: var(--wm-text-muted);
+    transition: color var(--wm-transition-fast);
+}
+
+.wm-footer__contact a:hover {
+    color: var(--wm-primary);
+}
+
+.wm-footer__sale {
+    margin-top: var(--wm-spacing-lg);
+    padding: var(--wm-spacing-md) var(--wm-spacing-lg);
+    background: var(--wm-gradient-primary);
+    border-radius: var(--wm-radius-md);
+    color: var(--wm-text);
+    font-weight: 600;
+}
+
 /* ==========================================================================
-   Theme Switcher (Professional Floating Button)
+   Theme Switcher
    ========================================================================== */
 
 .wm-theme-switcher {
     position: fixed;
-    bottom: 24px;
-    right: 24px;
+    bottom: 20px;
+    right: 20px;
     z-index: 1000;
 }
 
 .wm-theme-switcher__btn {
-    position: relative;
-    width: 48px;
-    height: 48px;
-    border-radius: var(--wm-radius-lg);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
     background: var(--wm-surface);
-    border: 1px solid var(--wm-border);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    border: 2px solid var(--wm-primary);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     transition: all var(--wm-transition-normal);
-    backdrop-filter: blur(8px);
+    box-shadow: 0 0 15px var(--wm-primary-glow), 0 4px 15px rgba(0, 0, 0, 0.3);
+    animation: wm-glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes wm-glow-pulse {
+    0%, 100% {
+        box-shadow: 0 0 15px var(--wm-primary-glow), 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 25px var(--wm-primary-glow), 0 0 40px var(--wm-primary-glow), 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
 }
 
 .wm-theme-switcher__btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-    border-color: var(--wm-primary);
+    transform: scale(1.1);
+    box-shadow: 0 0 30px var(--wm-primary-glow), 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
-.wm-theme-switcher__btn:active {
-    transform: translateY(0);
-}
-
-.wm-theme-switcher__btn .wm-theme-icon {
-    width: 20px;
-    height: 20px;
-    stroke: var(--wm-text-muted);
-    transition: stroke var(--wm-transition-fast);
-}
-
-.wm-theme-switcher__btn:hover .wm-theme-icon {
-    stroke: var(--wm-primary);
+.wm-theme-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--wm-primary);
 }
 
 .wm-theme-indicator {
     position: absolute;
-    bottom: 6px;
-    right: 6px;
-    width: 8px;
-    height: 8px;
+    bottom: -4px;
+    right: -4px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     background: var(--wm-primary);
-    box-shadow: 0 0 6px var(--wm-primary-glow);
+    border: 2px solid var(--wm-surface);
 }
 
 .wm-theme-menu {
     position: absolute;
-    bottom: calc(100% + 12px);
+    bottom: 70px;
     right: 0;
     background: var(--wm-surface);
     border: 1px solid var(--wm-border);
     border-radius: var(--wm-radius-lg);
-    display: none;
-    flex-direction: column;
+    padding: var(--wm-spacing-md);
     min-width: 180px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-    overflow: hidden;
-    backdrop-filter: blur(16px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all var(--wm-transition-normal);
+    box-shadow: var(--wm-shadow-lg);
 }
 
 .wm-theme-menu.active {
-    display: flex;
-    animation: wm-slide-up 0.2s ease;
-}
-
-@keyframes wm-slide-up {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 .wm-theme-menu__header {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--wm-border);
     font-size: 0.75rem;
-    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
     color: var(--wm-text-muted);
+    margin-bottom: var(--wm-spacing-sm);
+    padding-bottom: var(--wm-spacing-sm);
+    border-bottom: 1px solid var(--wm-border);
 }
 
 .wm-theme-menu__options {
-    padding: 8px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: var(--wm-spacing-xs);
 }
 
 .wm-theme-option {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 10px 12px;
+    gap: var(--wm-spacing-sm);
+    padding: var(--wm-spacing-sm) var(--wm-spacing-md);
+    background: transparent;
+    border: none;
     border-radius: var(--wm-radius-md);
     cursor: pointer;
-    transition: all var(--wm-transition-fast);
-    border: none;
-    background: transparent;
-    color: var(--wm-text);
-    font-size: 0.875rem;
+    transition: background var(--wm-transition-fast);
     width: 100%;
     text-align: left;
 }
@@ -1053,32 +857,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .wm-theme-option.active {
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.wm-theme-label {
-    flex: 1;
-    font-weight: 500;
-}
-
-.wm-theme-check {
-    width: 16px;
-    height: 16px;
-    stroke: var(--wm-primary);
-    opacity: 0;
-    transition: opacity var(--wm-transition-fast);
-}
-
-.wm-theme-option.active .wm-theme-check {
-    opacity: 1;
+    background: var(--wm-surface-hover);
 }
 
 .wm-theme-swatch {
-    width: 24px;
-    height: 24px;
-    border-radius: var(--wm-radius-sm);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--wm-border);
 }
 
 .wm-theme-swatch--red {
@@ -1089,13 +875,42 @@ h1, h2, h3, h4, h5, h6 {
     background: linear-gradient(135deg, #0066ff 0%, #003d99 100%);
 }
 
-.wm-theme-swatch--purple {
-    background: linear-gradient(135deg, #9333ea 0%, #581c87 100%);
+.wm-theme-label {
+    flex: 1;
+    font-size: 0.9rem;
+    color: var(--wm-text);
 }
+
+.wm-theme-check {
+    width: 16px;
+    height: 16px;
+    color: var(--wm-primary);
+    opacity: 0;
+}
+
+.wm-theme-option.active .wm-theme-check {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   Utility Classes
+   ========================================================================== */
+
+.wm-text-center { text-align: center; }
+.wm-text-muted { color: var(--wm-text-muted); }
+.wm-mb-lg { margin-bottom: var(--wm-spacing-lg); }
+.wm-mb-xl { margin-bottom: var(--wm-spacing-xl); }
+.wm-mt-lg { margin-top: var(--wm-spacing-lg); }
+.wm-mt-xl { margin-top: var(--wm-spacing-xl); }
 
 /* ==========================================================================
    Animations
    ========================================================================== */
+
+@keyframes wm-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
 
 @keyframes wm-fade-in {
     from {
@@ -1108,73 +923,10 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-@keyframes wm-fade-in-up {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes wm-scale-in {
-    from {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes wm-pulse {
-    0%, 100% {
-        box-shadow: 0 0 0 0 var(--wm-primary-glow);
-    }
-    50% {
-        box-shadow: 0 0 0 15px transparent;
-    }
-}
-
-@keyframes wm-float {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-5px);
-    }
-}
-
-@keyframes wm-shimmer {
-    0% {
-        background-position: -200% 0;
-    }
-    100% {
-        background-position: 200% 0;
-    }
-}
-
-/* Animation Classes */
-.wm-animate-fade-in {
-    animation: wm-fade-in 0.5s ease forwards;
-}
-
-.wm-animate-fade-in-up {
-    animation: wm-fade-in-up 0.6s ease forwards;
-}
-
-.wm-animate-scale-in {
-    animation: wm-scale-in 0.3s ease forwards;
-}
-
-/* Scroll Animation (Applied via JS) */
 .wm-scroll-animate {
     opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
 }
 
 .wm-scroll-animate.wm-visible {
@@ -1182,80 +934,201 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(0);
 }
 
-/* Stagger Animation */
 .wm-stagger > * {
-    opacity: 0;
-    animation: wm-fade-in-up 0.5s ease forwards;
-}
-
-.wm-stagger > *:nth-child(1) { animation-delay: 0.1s; }
-.wm-stagger > *:nth-child(2) { animation-delay: 0.15s; }
-.wm-stagger > *:nth-child(3) { animation-delay: 0.2s; }
-.wm-stagger > *:nth-child(4) { animation-delay: 0.25s; }
-.wm-stagger > *:nth-child(5) { animation-delay: 0.3s; }
-.wm-stagger > *:nth-child(6) { animation-delay: 0.35s; }
-.wm-stagger > *:nth-child(7) { animation-delay: 0.4s; }
-.wm-stagger > *:nth-child(8) { animation-delay: 0.45s; }
-.wm-stagger > *:nth-child(9) { animation-delay: 0.5s; }
-.wm-stagger > *:nth-child(10) { animation-delay: 0.55s; }
-
-/* Tap Animation */
-.wm-tap-animate {
-    transition: transform 0.1s ease;
-}
-
-.wm-tap-animate:active {
-    transform: scale(0.95);
+    transition-delay: calc(var(--stagger-index, 0) * 0.1s);
 }
 
 /* ==========================================================================
-   Utility Classes
+   About Page
    ========================================================================== */
 
-.wm-text-center { text-align: center; }
-.wm-text-primary { color: var(--wm-primary); }
-.wm-text-muted { color: var(--wm-text-muted); }
-.wm-bg-surface { background: var(--wm-surface); }
-.wm-mt-sm { margin-top: var(--wm-spacing-sm); }
-.wm-mt-md { margin-top: var(--wm-spacing-md); }
-.wm-mt-lg { margin-top: var(--wm-spacing-lg); }
-.wm-mt-xl { margin-top: var(--wm-spacing-xl); }
-.wm-mb-sm { margin-bottom: var(--wm-spacing-sm); }
-.wm-mb-md { margin-bottom: var(--wm-spacing-md); }
-.wm-mb-lg { margin-bottom: var(--wm-spacing-lg); }
-.wm-mb-xl { margin-bottom: var(--wm-spacing-xl); }
+.wm-about {
+    min-height: 60vh;
+}
+
+.wm-about__title {
+    text-align: center;
+    margin-bottom: var(--wm-spacing-2xl);
+    color: var(--wm-text);
+}
+
+.wm-about__content {
+    max-width: 800px;
+    margin: 0 auto;
+    color: var(--wm-text-muted);
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.wm-about__content h3 {
+    color: var(--wm-text);
+    margin-top: var(--wm-spacing-xl);
+    margin-bottom: var(--wm-spacing-md);
+}
+
+.wm-about__content p {
+    margin-bottom: var(--wm-spacing-md);
+}
+
+.wm-about__contact {
+    margin-top: var(--wm-spacing-xl);
+    padding: var(--wm-spacing-lg);
+    background: var(--wm-surface);
+    border-radius: var(--wm-radius-lg);
+    border: 1px solid var(--wm-border);
+}
+
+.wm-about__contact h3 {
+    margin-top: 0;
+}
+
+.wm-about__contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wm-spacing-md);
+    margin-top: var(--wm-spacing-md);
+}
+
+.wm-about__contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--wm-spacing-sm);
+    color: var(--wm-text);
+    transition: color var(--wm-transition-fast);
+}
+
+.wm-about__contact-link:hover {
+    color: var(--wm-primary);
+}
+
+.wm-about__sale-notice {
+    margin-top: var(--wm-spacing-xl);
+    padding: var(--wm-spacing-lg);
+    background: var(--wm-gradient-primary);
+    border-radius: var(--wm-radius-lg);
+    text-align: center;
+}
+
+.wm-about__sale-notice h3 {
+    color: var(--wm-text);
+    margin: 0 0 var(--wm-spacing-sm) 0;
+}
+
+.wm-about__sale-notice p {
+    color: var(--wm-text);
+    opacity: 0.9;
+    margin: 0;
+}
 
 /* ==========================================================================
-   WordPress Core Styles Override
+   No Results
    ========================================================================== */
 
-.wp-block-image img {
+.wm-no-results {
+    text-align: center;
+    padding: var(--wm-spacing-2xl);
+    color: var(--wm-text-muted);
+}
+
+/* ==========================================================================
+   Pagination
+   ========================================================================== */
+
+.wm-pagination {
+    display: flex;
+    justify-content: center;
+    gap: var(--wm-spacing-sm);
+    flex-wrap: wrap;
+}
+
+.wm-pagination .page-numbers {
+    padding: var(--wm-spacing-sm) var(--wm-spacing-md);
+    background: var(--wm-surface);
+    border: 1px solid var(--wm-border);
     border-radius: var(--wm-radius-md);
+    color: var(--wm-text);
+    transition: all var(--wm-transition-fast);
 }
 
-.wp-block-gallery {
-    gap: var(--wm-spacing-md) !important;
+.wm-pagination .page-numbers:hover,
+.wm-pagination .page-numbers.current {
+    background: var(--wm-primary);
+    border-color: var(--wm-primary);
 }
 
-.alignwide {
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
+/* ==========================================================================
+   Archive Header
+   ========================================================================== */
+
+.wm-archive-header {
+    text-align: center;
+    margin-bottom: var(--wm-spacing-2xl);
 }
 
-.alignfull {
-    width: 100vw;
-    max-width: 100vw;
-    margin-left: calc(-50vw + 50%);
+.wm-archive-subtitle {
+    color: var(--wm-text-muted);
+    font-size: 1.1rem;
+    margin-top: var(--wm-spacing-sm);
 }
 
-/* Screen Reader Text */
-.screen-reader-text {
-    clip: rect(1px, 1px, 1px, 1px);
-    position: absolute !important;
-    height: 1px;
-    width: 1px;
+/* ==========================================================================
+   Badges
+   ========================================================================== */
+
+.wm-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: var(--wm-primary);
+    color: var(--wm-text);
+    border-radius: var(--wm-radius-full);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.wm-badge--movie {
+    background: var(--wm-gradient-primary);
+}
+
+/* ==========================================================================
+   Movie Meta Items
+   ========================================================================== */
+
+.wm-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--wm-surface);
+    border-radius: var(--wm-radius-full);
+    border: 1px solid var(--wm-border);
+    color: var(--wm-text);
+    font-size: 0.9rem;
+}
+
+.wm-meta-item svg {
+    color: var(--wm-primary);
+}
+
+/* ==========================================================================
+   Screenshot Cards (Movies)
+   ========================================================================== */
+
+.wm-screenshot-card {
+    border-radius: var(--wm-radius-md);
     overflow: hidden;
+    transition: transform var(--wm-transition-normal);
+}
+
+.wm-screenshot-card:hover {
+    transform: scale(1.03);
+}
+
+.wm-screenshot-card img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
 }
 
 /* ==========================================================================
@@ -1263,66 +1136,22 @@ h1, h2, h3, h4, h5, h6 {
    ========================================================================== */
 
 @media (max-width: 768px) {
-    /* Scale down overall sizing for mobile */
-    html {
-        font-size: 14px;
-    }
-    
     .wm-header__inner {
         padding: 0 var(--wm-spacing-sm);
     }
     
-    /* Logo scaling */
-    .wm-logo {
-        font-size: clamp(1.5rem, 4vw, 2rem);
-    }
-    
-    .wm-logo__icon {
-        font-size: 1em;
-    }
-    
-    .wm-logo__icon img,
-    .wm-logo__icon svg {
-        width: 32px;
-        height: 32px;
-    }
-    
-    /* Search bar */
-    .wm-search {
-        max-width: 100%;
-    }
-    
-    .wm-search__input {
-        padding: var(--wm-spacing-sm) var(--wm-spacing-md);
-        font-size: 0.875rem;
-    }
-    
-    .wm-search__btn {
-        padding: var(--wm-spacing-sm) var(--wm-spacing-md);
-    }
-    
-    /* Feature buttons */
     .wm-features {
-        width: 100%;
         gap: var(--wm-spacing-sm);
     }
     
     .wm-feature-btn {
-        flex: 1;
-        min-width: 80px;
-        justify-content: center;
-        padding: var(--wm-spacing-xs) var(--wm-spacing-sm);
-        font-size: 0.8rem;
+        padding: var(--wm-spacing-sm) var(--wm-spacing-md);
+        font-size: 0.85rem;
     }
     
-    /* Series grid cards */
     .wm-series-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: var(--wm-spacing-sm);
-    }
-    
-    .wm-series-card__content {
-        padding: var(--wm-spacing-sm);
+        gap: var(--wm-spacing-md);
     }
     
     .wm-series-card__title {
@@ -1333,176 +1162,82 @@ h1, h2, h3, h4, h5, h6 {
         font-size: 0.75rem;
     }
     
-    /* Single series page */
-    .wm-series-hero {
-        gap: var(--wm-spacing-md);
-    }
-    
-    .wm-series-poster {
-        max-width: 200px;
-        margin: 0 auto;
-    }
-    
-    .wm-series-info__title {
-        font-size: clamp(1.5rem, 4vw, 2rem);
-        text-align: center;
-    }
-    
-    .wm-series-info__description {
-        font-size: 0.95rem;
-    }
-    
-    .wm-badge {
-        font-size: 0.75rem !important;
-        padding: 0.35rem 0.75rem !important;
-    }
-    
-    /* Screenshots */
-    .wm-screenshots__grid {
-        grid-template-columns: 1fr;
-    }
-    
-    /* Episodes */
     .wm-episode-item {
         flex-direction: column;
-        gap: var(--wm-spacing-sm);
+        gap: var(--wm-spacing-md);
         text-align: center;
-        padding: var(--wm-spacing-md);
     }
     
     .wm-episode-item__info {
         flex-direction: column;
     }
     
-    .wm-episode-item__number {
-        width: 32px;
-        height: 32px;
-        font-size: 0.875rem;
-    }
-    
-    .wm-episode-item__title {
-        font-size: 0.9rem;
-    }
-    
-    .wm-episode-item__download {
-        padding: var(--wm-spacing-xs) var(--wm-spacing-md);
-        font-size: 0.85rem;
-    }
-    
-    /* Buttons */
-    .wm-btn {
-        padding: var(--wm-spacing-sm) var(--wm-spacing-md);
-        font-size: 0.9rem;
-    }
-    
-    .wm-btn--lg {
-        padding: var(--wm-spacing-md) var(--wm-spacing-lg);
-        font-size: 1rem;
-    }
-    
-    /* Download section */
-    .wm-download-section {
-        padding: 1rem !important;
-        margin-top: 1.5rem !important;
-    }
-    
-    .wm-download-group-item {
-        padding: 0.75rem !important;
-    }
-    
-    .wm-download-group-item__name {
-        font-size: 0.95rem !important;
-    }
-    
-    /* Theme switcher - more prominent on mobile */
     .wm-theme-switcher {
-        bottom: 16px;
-        right: 16px;
+        bottom: 15px;
+        right: 15px;
     }
     
     .wm-theme-switcher__btn {
         width: 50px;
         height: 50px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px var(--wm-primary-glow);
-        animation: wm-pulse 2s infinite;
     }
     
-    .wm-theme-switcher__btn::after {
-        content: '';
-        position: absolute;
-        inset: -3px;
-        border-radius: inherit;
-        border: 2px solid var(--wm-primary);
-        opacity: 0.5;
+    .wm-footer__links {
+        flex-direction: column;
+        gap: var(--wm-spacing-md);
     }
     
-    .wm-theme-indicator {
-        width: 20px;
-        height: 20px;
+    .wm-logo {
+        font-size: clamp(1.5rem, 4vw, 2rem);
     }
     
-    /* Typography */
-    .wm-title-xl {
-        font-size: clamp(1.75rem, 5vw, 2.5rem);
+    .wm-search__input {
+        padding: var(--wm-spacing-sm) var(--wm-spacing-md);
+        font-size: 0.9rem;
     }
     
-    .wm-title-lg {
-        font-size: clamp(1.25rem, 4vw, 1.75rem);
-    }
-    
-    .wm-title-md {
-        font-size: clamp(1rem, 3vw, 1.25rem);
-    }
-    
-    /* Container padding */
-    .wm-container {
-        padding: 0 var(--wm-spacing-sm);
-    }
-    
-    /* Section spacing */
-    .wm-section {
-        padding: var(--wm-spacing-xl) 0;
-    }
-    
-    .wm-single-series {
-        padding: var(--wm-spacing-lg) 0;
-    }
-    
-    /* Footer */
-    .wm-footer {
-        padding: var(--wm-spacing-lg) 0;
-    }
-    
-    .wm-footer__brand {
-        font-size: 1.25rem;
+    .wm-search__btn {
+        padding: var(--wm-spacing-sm) var(--wm-spacing-md);
     }
 }
 
-/* Extra small devices */
 @media (max-width: 480px) {
-    html {
-        font-size: 13px;
-    }
-    
     .wm-series-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: var(--wm-spacing-xs);
+        gap: var(--wm-spacing-sm);
     }
     
     .wm-series-card__content {
-        padding: var(--wm-spacing-xs);
+        padding: var(--wm-spacing-sm);
     }
     
     .wm-series-card__title {
         font-size: 0.8rem;
     }
     
-    .wm-feature-btn {
-        font-size: 0.75rem;
-        padding: var(--wm-spacing-xs) var(--wm-spacing-xs);
+    .wm-btn {
+        padding: var(--wm-spacing-sm) var(--wm-spacing-md);
+        font-size: 0.9rem;
     }
     
-    .wm-logo {
-        font-size: 1.25rem;
+    .wm-title-xl {
+        font-size: 1.75rem;
     }
+    
+    .wm-title-lg {
+        font-size: 1.5rem;
+    }
+    
+    .wm-container {
+        padding: 0 var(--wm-spacing-sm);
+    }
+}
+
+/* Screen reader text */
+.screen-reader-text {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
 }

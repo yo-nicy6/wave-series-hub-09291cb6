@@ -15,7 +15,7 @@
             <!-- Logo -->
             <a href="<?php echo esc_url(home_url('/')); ?>" class="wm-logo">
                 <span class="wm-logo__icon">🎬</span>
-                Wave-<span>Movies</span>
+                Thisy-<span>World</span>
             </a>
             
             <!-- Search Bar -->
@@ -24,10 +24,10 @@
                     <input type="search" 
                            class="wm-search__input" 
                            name="s" 
-                           placeholder="<?php esc_attr_e('Search series & movies...', 'wave-movies'); ?>" 
+                           placeholder="<?php esc_attr_e('Search series & movies...', 'thisy-world'); ?>" 
                            value="<?php echo get_search_query(); ?>"
-                           aria-label="<?php esc_attr_e('Search', 'wave-movies'); ?>">
-                    <button type="submit" class="wm-search__btn wm-tap-animate">
+                           aria-label="<?php esc_attr_e('Search', 'thisy-world'); ?>">
+                    <button type="submit" class="wm-search__btn wm-tap-animate" aria-label="<?php esc_attr_e('Search', 'thisy-world'); ?>">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="11" cy="11" r="8"></circle>
                             <path d="m21 21-4.3-4.3"></path>
@@ -47,7 +47,7 @@
                             <path d="M12 16v-4"></path>
                             <path d="M12 8h.01"></path>
                         </svg>
-                        <?php _e('About', 'wave-movies'); ?>
+                        <?php _e('About', 'thisy-world'); ?>
                     </a>
                 <?php endif; ?>
                 
@@ -57,7 +57,7 @@
                         <line x1="7" y1="2" x2="7" y2="22"></line>
                         <line x1="17" y1="2" x2="17" y2="22"></line>
                     </svg>
-                    <?php _e('Series', 'wave-movies'); ?>
+                    <?php _e('Series', 'thisy-world'); ?>
                 </a>
                 
                 <a href="<?php echo get_post_type_archive_link('movie'); ?>" class="wm-feature-btn wm-tap-animate">
@@ -67,7 +67,7 @@
                         <line x1="17" y1="2" x2="17" y2="22"></line>
                         <line x1="2" y1="12" x2="22" y2="12"></line>
                     </svg>
-                    <?php _e('Movies', 'wave-movies'); ?>
+                    <?php _e('Movies', 'thisy-world'); ?>
                 </a>
             </nav>
         </div>

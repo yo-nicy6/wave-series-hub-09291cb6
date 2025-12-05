@@ -1,14 +1,14 @@
 /**
- * Wave-Movies Theme Animations & Interactions
+ * Thisy-World Theme Animations & Interactions
  *
  * This file handles:
- * - Theme switching (Red/Blue/Purple) with localStorage persistence
+ * - Theme switching (Red/Blue) with localStorage persistence
  * - Floating draggable theme button
  * - Scroll-triggered animations
  * - Tap/click animations
  * - Hover effects enhancement
  *
- * @package Wave-Movies
+ * @package Thisy-World
  */
 
 (function() {
@@ -363,7 +363,7 @@
         CardEffects.init();
         SmoothScroll.init();
         
-        console.log('Wave-Movies animations initialized');
+        console.log('Thisy-World animations initialized');
     });
 
 })();

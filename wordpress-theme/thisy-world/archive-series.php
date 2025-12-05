@@ -4,7 +4,7 @@
  *
  * Displays all series in a grid layout.
  *
- * @package Wave-Movies
+ * @package Thisy-World
  */
 
 get_header();
@@ -15,7 +15,7 @@ $paged = get_query_var('paged') ? get_query_var('paged') : 1;
 <section class="wm-section">
     <div class="wm-container">
         <h1 class="wm-title-lg wm-text-center wm-mb-xl wm-scroll-animate">
-            <?php _e('All Series', 'wave-movies'); ?>
+            <?php _e('All Series', 'thisy-world'); ?>
         </h1>
         
         <?php if (have_posts()) : ?>
@@ -49,7 +49,7 @@ $paged = get_query_var('paged') ? get_query_var('paged') : 1;
                                     <span><?php echo esc_html($year); ?></span>
                                 <?php endif; ?>
                                 <?php if ($episode_count) : ?>
-                                    <span> • <?php printf(_n('%d Episode', '%d Episodes', intval($episode_count), 'wave-movies'), intval($episode_count)); ?></span>
+                                    <span> • <?php printf(_n('%d Episode', '%d Episodes', intval($episode_count), 'thisy-world'), intval($episode_count)); ?></span>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -61,15 +61,15 @@ $paged = get_query_var('paged') ? get_query_var('paged') : 1;
             <div class="wm-pagination wm-mt-xl" style="text-align: center;">
                 <?php
                 the_posts_pagination(array(
-                    'prev_text' => '&laquo; ' . __('Previous', 'wave-movies'),
-                    'next_text' => __('Next', 'wave-movies') . ' &raquo;',
+                    'prev_text' => '&laquo; ' . __('Previous', 'thisy-world'),
+                    'next_text' => __('Next', 'thisy-world') . ' &raquo;',
                 ));
                 ?>
             </div>
             
         <?php else : ?>
             <div class="wm-no-results">
-                <p><?php _e('No series found.', 'wave-movies'); ?></p>
+                <p><?php _e('No series found.', 'thisy-world'); ?></p>
             </div>
         <?php endif; ?>
     </div>
