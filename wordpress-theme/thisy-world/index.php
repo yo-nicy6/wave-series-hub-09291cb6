@@ -30,36 +30,40 @@ if ($orderby === 'views') {
 $series_query = new WP_Query($args);
 ?>
 
-<section class="wm-section">
+<section class="wm-section" aria-labelledby="series-heading">
     <div class="wm-container">
+        <!-- Breadcrumbs -->
+        <?php if (!is_front_page()) thisy_world_breadcrumbs(); ?>
+        
         <?php if ($orderby === 'views') : ?>
-            <h1 class="wm-title-lg wm-text-center wm-mb-xl wm-scroll-animate">
+            <h1 id="series-heading" class="wm-title-lg wm-text-center wm-mb-xl wm-scroll-animate">
                 <?php _e('Most Viewed Series', 'thisy-world'); ?>
             </h1>
         <?php elseif ($orderby === 'date') : ?>
-            <h1 class="wm-title-lg wm-text-center wm-mb-xl wm-scroll-animate">
+            <h1 id="series-heading" class="wm-title-lg wm-text-center wm-mb-xl wm-scroll-animate">
                 <?php _e('Recent Series', 'thisy-world'); ?>
             </h1>
         <?php else : ?>
-            <h1 class="wm-title-lg wm-text-center wm-mb-xl wm-scroll-animate">
+            <h1 id="series-heading" class="wm-title-lg wm-text-center wm-mb-xl wm-scroll-animate">
                 <?php _e('All Series', 'thisy-world'); ?>
             </h1>
         <?php endif; ?>
         
         <?php if ($series_query->have_posts()) : ?>
-            <div class="wm-series-grid wm-stagger">
+            <div class="wm-series-grid wm-stagger" role="list">
                 <?php while ($series_query->have_posts()) : $series_query->the_post(); ?>
-                    <article class="wm-series-card wm-scroll-animate" onclick="window.location='<?php the_permalink(); ?>'">
+                    <article class="wm-series-card wm-scroll-animate" role="listitem" onclick="window.location='<?php the_permalink(); ?>'" itemscope itemtype="https://schema.org/TVSeries">
+                        <a href="<?php the_permalink(); ?>" class="wm-series-card__link" aria-label="<?php echo esc_attr(get_the_title()); ?>">
                         <div class="wm-series-card__poster">
                             <?php if (has_post_thumbnail()) : ?>
-                                <?php the_post_thumbnail('wm-poster', array('alt' => get_the_title())); ?>
+                                <?php the_post_thumbnail('wm-poster', array('alt' => get_the_title(), 'itemprop' => 'image', 'loading' => 'lazy')); ?>
                             <?php else : ?>
-                                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/placeholder-poster.jpg'); ?>" alt="<?php the_title_attribute(); ?>">
+                                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/placeholder-poster.jpg'); ?>" alt="<?php the_title_attribute(); ?>" loading="lazy">
                             <?php endif; ?>
                             
                             <div class="wm-series-card__overlay">
                                 <div class="wm-series-card__play">
-                                    <svg viewBox="0 0 24 24">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true">
                                         <polygon points="5 3 19 12 5 21 5 3"></polygon>
                                     </svg>
                                 </div>
@@ -67,7 +71,7 @@ $series_query = new WP_Query($args);
                         </div>
                         
                         <div class="wm-series-card__content">
-                            <h3 class="wm-series-card__title"><?php the_title(); ?></h3>
+                            <h3 class="wm-series-card__title" itemprop="name"><?php the_title(); ?></h3>
                             <div class="wm-series-card__meta">
                                 <?php
                                 $year = get_post_meta(get_the_ID(), '_wm_year', true);
@@ -81,6 +85,7 @@ $series_query = new WP_Query($args);
                                 <?php endif; ?>
                             </div>
                         </div>
+                        </a>
                     </article>
                 <?php endwhile; ?>
             </div>

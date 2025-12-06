@@ -1,0 +1,27 @@
+# Thisy-World Robots.txt
+# SEO Optimized
+
+User-agent: *
+Allow: /
+
+# Block admin and internal pages
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /wp-content/plugins/
+Disallow: /wp-content/cache/
+Disallow: /trackback/
+Disallow: /feed/
+Disallow: /comments/
+Disallow: /*?*
+Disallow: /*.php$
+
+# Allow important resources
+Allow: /wp-content/uploads/
+Allow: /wp-content/themes/thisy-world/
+
+# Crawl delay for server performance
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://thisy-world.com/sitemap_index.xml
+Sitemap: https://thisy-world.com/sitemap.xml
