@@ -27,8 +27,11 @@ if ($duration) {
 }
 ?>
 
-<section class="wm-single-series wm-single-movie">
+<section class="wm-single-series wm-single-movie" itemscope itemtype="https://schema.org/Movie">
     <div class="wm-container">
+        <!-- Breadcrumbs -->
+        <?php thisy_world_breadcrumbs(); ?>
+        
         <!-- Movie Hero Section -->
         <div class="wm-series-hero wm-scroll-animate">
             <div class="wm-series-poster">
@@ -53,7 +56,7 @@ if ($duration) {
             <div class="wm-series-info">
                 <span class="wm-badge wm-badge--movie"><?php _e('Movie', 'thisy-world'); ?></span>
                 
-                <h1 class="wm-series-info__title"><?php the_title(); ?></h1>
+                <h1 class="wm-series-info__title" itemprop="name"><?php the_title(); ?></h1>
                 
                 <!-- Movie Meta -->
                 <div class="wm-series-meta" style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
@@ -90,7 +93,7 @@ if ($duration) {
                 </div>
                 
                 <!-- Description -->
-                <div class="wm-series-info__description">
+                <div class="wm-series-info__description" itemprop="description">
                     <?php the_content(); ?>
                 </div>
                 

@@ -20,8 +20,10 @@ $show_episodes = isset($_GET['group']);
         <?php get_template_part('template-parts/episodes-list'); ?>
     <?php else : ?>
         <!-- Series Detail View -->
-        <section class="wm-single-series">
+        <section class="wm-single-series" itemscope itemtype="https://schema.org/TVSeries">
             <div class="wm-container">
+                <!-- Breadcrumbs -->
+                <?php thisy_world_breadcrumbs(); ?>
                 <div class="wm-series-hero wm-scroll-animate">
                     <!-- Poster -->
                     <div class="wm-series-poster">
@@ -34,7 +36,7 @@ $show_episodes = isset($_GET['group']);
                     
                     <!-- Info -->
                     <div class="wm-series-info">
-                        <h1 class="wm-series-info__title"><?php the_title(); ?></h1>
+                        <h1 class="wm-series-info__title" itemprop="name"><?php the_title(); ?></h1>
                         
                         <!-- Meta Information -->
                         <div class="wm-series-meta" style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;">
@@ -93,7 +95,7 @@ $show_episodes = isset($_GET['group']);
                         <?php endif; ?>
                         
                         <!-- Description -->
-                        <div class="wm-series-info__description">
+                        <div class="wm-series-info__description" itemprop="description">
                             <?php the_content(); ?>
                         </div>
                     </div>

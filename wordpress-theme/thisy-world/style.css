@@ -1233,6 +1233,41 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
+/* ==========================================================================
+   Breadcrumbs (SEO)
+   ========================================================================== */
+
+.wm-breadcrumbs {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--wm-spacing-sm);
+    padding: var(--wm-spacing-md) 0;
+    margin-bottom: var(--wm-spacing-lg);
+    font-size: 0.875rem;
+    color: var(--wm-text-muted);
+}
+
+.wm-breadcrumbs a {
+    color: var(--wm-text-muted);
+    text-decoration: none;
+    transition: color var(--wm-transition-fast);
+}
+
+.wm-breadcrumbs a:hover {
+    color: var(--wm-primary);
+}
+
+.wm-breadcrumb-sep {
+    color: var(--wm-border);
+    margin: 0 var(--wm-spacing-xs);
+}
+
+.wm-breadcrumb-current {
+    color: var(--wm-text);
+    font-weight: 500;
+}
+
 /* Screen reader text */
 .screen-reader-text {
     position: absolute;
@@ -1240,4 +1275,54 @@ h1, h2, h3, h4, h5, h6 {
     width: 1px;
     height: 1px;
     overflow: hidden;
+}
+
+/* ==========================================================================
+   Lazy Loading & Performance
+   ========================================================================== */
+
+img[loading="lazy"] {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+img.lazyload {
+    opacity: 0;
+}
+
+img.lazyloaded {
+    opacity: 1;
+}
+
+/* Skip to content (Accessibility) */
+.skip-to-content {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--wm-primary);
+    color: var(--wm-text);
+    padding: var(--wm-spacing-sm) var(--wm-spacing-md);
+    border-radius: var(--wm-radius-md);
+    z-index: 10000;
+    transition: top var(--wm-transition-fast);
+}
+
+.skip-to-content:focus {
+    top: var(--wm-spacing-sm);
+}
+
+/* Print styles */
+@media print {
+    .wm-header,
+    .wm-footer,
+    .wm-breadcrumbs,
+    .wm-btn {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
 }

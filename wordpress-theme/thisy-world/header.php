@@ -4,10 +4,16 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#dc2626">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
+
+<!-- Skip to main content (Accessibility) -->
+<a class="skip-to-content" href="#main-content"><?php _e('Skip to main content', 'thisy-world'); ?></a>
 
 <header class="wm-header">
     <div class="wm-container">
@@ -74,4 +80,4 @@
     </div>
 </header>
 
-<main class="wm-main">
+<main id="main-content" class="wm-main" role="main">

@@ -10,6 +10,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Load SEO Functions
+require_once get_template_directory() . '/inc/seo-functions.php';
+
 /**
  * Theme Setup
  */

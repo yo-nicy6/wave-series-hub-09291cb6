@@ -8,15 +8,18 @@
 get_header();
 ?>
 
-<section class="wm-archive wm-section">
+<section class="wm-archive wm-section" aria-labelledby="movies-heading">
     <div class="wm-container">
+        <!-- Breadcrumbs -->
+        <?php thisy_world_breadcrumbs(); ?>
+        
         <div class="wm-archive-header wm-scroll-animate">
-            <h1 class="wm-title-xl"><?php _e('All Movies', 'thisy-world'); ?></h1>
+            <h1 id="movies-heading" class="wm-title-xl"><?php _e('All Movies', 'thisy-world'); ?></h1>
             <p class="wm-archive-subtitle"><?php _e('Browse our complete movie collection', 'thisy-world'); ?></p>
         </div>
         
         <?php if (have_posts()) : ?>
-            <div class="wm-series-grid wm-stagger">
+            <div class="wm-series-grid wm-stagger" role="list">
                 <?php while (have_posts()) : the_post(); 
                     $year = get_post_meta(get_the_ID(), '_wm_movie_year', true);
                     $rating = get_post_meta(get_the_ID(), '_wm_movie_rating', true);
@@ -34,10 +37,11 @@ get_header();
                         }
                     }
                 ?>
-                    <a href="<?php the_permalink(); ?>" class="wm-series-card wm-scroll-animate">
+                    <article class="wm-series-card wm-scroll-animate" role="listitem" itemscope itemtype="https://schema.org/Movie">
+                        <a href="<?php the_permalink(); ?>" class="wm-series-card__link" aria-label="<?php echo esc_attr(get_the_title()); ?>">
                         <div class="wm-series-card__poster">
                             <?php if (has_post_thumbnail()) : ?>
-                                <?php the_post_thumbnail('wm-poster'); ?>
+                                <?php the_post_thumbnail('wm-poster', array('loading' => 'lazy', 'itemprop' => 'image')); ?>
                             <?php else : ?>
                                 <div class="wm-series-card__placeholder">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
@@ -54,24 +58,25 @@ get_header();
                             <?php endif; ?>
                             <div class="wm-series-card__overlay">
                                 <div class="wm-series-card__play">
-                                    <svg viewBox="0 0 24 24">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true">
                                         <polygon points="5 3 19 12 5 21 5 3"></polygon>
                                     </svg>
                                 </div>
                             </div>
-                            <span class="wm-badge wm-badge--movie" style="position: absolute; top: 8px; left: 8px; font-size: 0.7rem; padding: 0.25rem 0.5rem;">
+                            <span class="wm-badge wm-badge--movie" style="position: absolute; top: 8px; left: 8px; font-size: 0.7rem; padding: 0.25rem 0.5rem;" aria-hidden="true">
                                 <?php _e('Movie', 'thisy-world'); ?>
                             </span>
                         </div>
                         <div class="wm-series-card__content">
-                            <h3 class="wm-series-card__title"><?php the_title(); ?></h3>
+                            <h3 class="wm-series-card__title" itemprop="name"><?php the_title(); ?></h3>
                             <p class="wm-series-card__meta">
-                                <?php if ($year) echo esc_html($year); ?>
+                                <?php if ($year) : ?><span itemprop="datePublished"><?php echo esc_html($year); ?></span><?php endif; ?>
                                 <?php if ($year && $duration_formatted) echo ' • '; ?>
-                                <?php if ($duration_formatted) echo esc_html($duration_formatted); ?>
+                                <?php if ($duration_formatted) : ?><span itemprop="duration"><?php echo esc_html($duration_formatted); ?></span><?php endif; ?>
                             </p>
                         </div>
-                    </a>
+                        </a>
+                    </article>
                 <?php endwhile; ?>
             </div>
             
