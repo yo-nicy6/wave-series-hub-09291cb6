@@ -404,6 +404,74 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--wm-text-muted);
 }
 
+/* Type Badge (Movie/Series) */
+.wm-type-badge {
+    position: absolute;
+    top: var(--wm-spacing-sm);
+    left: var(--wm-spacing-sm);
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: var(--wm-radius-sm);
+    z-index: 10;
+}
+
+.wm-type-badge--movie {
+    background: linear-gradient(135deg, #ff6b35 0%, #f7c59f 100%);
+    color: #1a0a00;
+}
+
+.wm-type-badge--series {
+    background: linear-gradient(135deg, #00d4ff 0%, #7b68ee 100%);
+    color: #000;
+}
+
+/* Search Prompt Section */
+.wm-search-prompt {
+    text-align: center;
+    padding: var(--wm-spacing-2xl);
+    background: var(--wm-gradient-surface);
+    border-radius: var(--wm-radius-xl);
+    border: 1px solid var(--wm-border);
+}
+
+.wm-search-prompt h2 {
+    font-size: 1.5rem;
+    color: var(--wm-text);
+    margin-bottom: var(--wm-spacing-sm);
+}
+
+.wm-search-prompt p {
+    color: var(--wm-text-muted);
+    margin-bottom: var(--wm-spacing-lg);
+}
+
+.wm-search-prompt .wm-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--wm-spacing-sm);
+}
+
+/* No Results Enhanced */
+.wm-no-results {
+    text-align: center;
+    padding: var(--wm-spacing-2xl);
+    color: var(--wm-text-muted);
+}
+
+.wm-no-results__icon {
+    margin-bottom: var(--wm-spacing-md);
+    color: var(--wm-primary);
+}
+
+.wm-no-results__hint {
+    font-size: 0.875rem;
+    margin-top: var(--wm-spacing-sm);
+    opacity: 0.7;
+}
+
 /* ==========================================================================
    Single Series Page
    ========================================================================== */
