@@ -1380,6 +1380,273 @@ img.lazyloaded {
     top: var(--wm-spacing-sm);
 }
 
+/* ==========================================================================
+   Live Search Styles
+   ========================================================================== */
+
+.wm-search__wrapper {
+    position: relative;
+    display: flex;
+    gap: var(--wm-spacing-sm);
+}
+
+.wm-search__loading {
+    position: absolute;
+    right: 120px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wm-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--wm-border);
+    border-top-color: var(--wm-primary);
+    border-radius: 50%;
+    animation: wm-spin 0.8s linear infinite;
+}
+
+@keyframes wm-spin {
+    to { transform: rotate(360deg); }
+}
+
+.wm-live-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--wm-surface);
+    border: 1px solid var(--wm-border);
+    border-radius: var(--wm-radius-md);
+    box-shadow: var(--wm-shadow-lg);
+    margin-top: var(--wm-spacing-sm);
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+.wm-live-results__list {
+    padding: var(--wm-spacing-sm);
+}
+
+.wm-live-results__item {
+    display: flex;
+    align-items: center;
+    gap: var(--wm-spacing-md);
+    padding: var(--wm-spacing-sm);
+    border-radius: var(--wm-radius-sm);
+    text-decoration: none;
+    transition: background var(--wm-transition-fast);
+}
+
+.wm-live-results__item:hover {
+    background: var(--wm-surface-hover);
+}
+
+.wm-live-results__thumb {
+    width: 50px;
+    height: 75px;
+    border-radius: var(--wm-radius-sm);
+    overflow: hidden;
+    flex-shrink: 0;
+    background: var(--wm-border);
+}
+
+.wm-live-results__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.wm-live-results__placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--wm-border);
+}
+
+.wm-live-results__info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.wm-live-results__title {
+    color: var(--wm-text);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.wm-live-results__type {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: var(--wm-radius-sm);
+    display: inline-block;
+    width: fit-content;
+}
+
+.wm-live-results__type--movie {
+    background: linear-gradient(135deg, #ff6b35 0%, #f7c59f 100%);
+    color: #1a0a00;
+}
+
+.wm-live-results__type--series {
+    background: linear-gradient(135deg, #00d4ff 0%, #7b68ee 100%);
+    color: #000;
+}
+
+.wm-live-results__year {
+    color: var(--wm-text-muted);
+    font-size: 0.85rem;
+}
+
+.wm-live-results__more {
+    display: block;
+    text-align: center;
+    padding: var(--wm-spacing-md);
+    color: var(--wm-primary);
+    font-weight: 600;
+    text-decoration: none;
+    border-top: 1px solid var(--wm-border);
+    transition: background var(--wm-transition-fast);
+}
+
+.wm-live-results__more:hover {
+    background: var(--wm-surface-hover);
+}
+
+.wm-live-results__empty {
+    padding: var(--wm-spacing-xl);
+    text-align: center;
+}
+
+.wm-live-results__empty-icon {
+    font-size: 3rem;
+    margin-bottom: var(--wm-spacing-md);
+}
+
+.wm-live-results__empty-title {
+    color: var(--wm-text);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: var(--wm-spacing-sm);
+}
+
+.wm-live-results__empty-hint {
+    color: var(--wm-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: var(--wm-spacing-xs);
+}
+
+/* ==========================================================================
+   Enhanced No Results Page
+   ========================================================================== */
+
+.wm-no-results-enhanced {
+    text-align: center;
+    padding: var(--wm-spacing-2xl);
+    background: var(--wm-gradient-surface);
+    border-radius: var(--wm-radius-xl);
+    border: 1px solid var(--wm-border);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.wm-no-results-enhanced__icon {
+    margin-bottom: var(--wm-spacing-lg);
+    color: var(--wm-text-muted);
+}
+
+.wm-no-results-enhanced__title {
+    font-size: 1.5rem;
+    color: var(--wm-primary);
+    margin-bottom: var(--wm-spacing-md);
+}
+
+.wm-no-results-enhanced__query {
+    color: var(--wm-text);
+    font-size: 1rem;
+    margin-bottom: var(--wm-spacing-lg);
+}
+
+.wm-no-results-enhanced__query strong {
+    color: var(--wm-primary);
+}
+
+.wm-no-results-enhanced__reasons,
+.wm-no-results-enhanced__suggestions {
+    text-align: left;
+    margin-bottom: var(--wm-spacing-lg);
+    padding: var(--wm-spacing-md);
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--wm-radius-md);
+}
+
+.wm-no-results-enhanced__reasons h3,
+.wm-no-results-enhanced__suggestions h3 {
+    color: var(--wm-text);
+    font-size: 0.95rem;
+    margin-bottom: var(--wm-spacing-sm);
+}
+
+.wm-no-results-enhanced__reasons ul,
+.wm-no-results-enhanced__suggestions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.wm-no-results-enhanced__reasons li,
+.wm-no-results-enhanced__suggestions li {
+    color: var(--wm-text-muted);
+    font-size: 0.9rem;
+    padding: var(--wm-spacing-xs) 0;
+    padding-left: var(--wm-spacing-lg);
+    position: relative;
+}
+
+.wm-no-results-enhanced__reasons li::before {
+    content: "✗";
+    position: absolute;
+    left: 0;
+    color: var(--wm-primary);
+}
+
+.wm-no-results-enhanced__suggestions li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--wm-primary);
+}
+
+.wm-no-results-enhanced__actions {
+    display: flex;
+    gap: var(--wm-spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.wm-no-results-enhanced__actions .wm-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--wm-spacing-sm);
+}
+
+.wm-btn--secondary {
+    background: transparent;
+    border: 2px solid var(--wm-primary);
+    color: var(--wm-primary);
+}
+
+.wm-btn--secondary:hover {
+    background: var(--wm-primary);
+    color: var(--wm-text);
+}
+
 /* Print styles */
 @media print {
     .wm-header,
