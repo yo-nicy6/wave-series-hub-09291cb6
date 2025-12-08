@@ -412,3 +412,68 @@ add_action('save_post_movie', 'thisy_world_save_movie_meta');
 
 function thisy_world_get_movie_downloads($movie_id) { $downloads = get_post_meta($movie_id, '_wm_movie_downloads', true); return is_array($downloads) ? $downloads : array(); }
 function thisy_world_get_movie_screenshots($movie_id) { $screenshots = get_post_meta($movie_id, '_wm_movie_screenshots', true); return is_array($screenshots) ? $screenshots : array(); }
+
+/**
+ * Live Search AJAX Handler
+ */
+function thisy_world_live_search() {
+    // Verify nonce
+    if (!isset($_GET['nonce']) || !wp_verify_nonce($_GET['nonce'], 'wm_live_search')) {
+        wp_send_json(array('success' => false, 'message' => 'Invalid request'));
+        exit;
+    }
+    
+    $search_query = isset($_GET['s']) ? sanitize_text_field($_GET['s']) : '';
+    
+    if (empty($search_query) || strlen($search_query) < 2) {
+        wp_send_json(array('success' => false, 'results' => array()));
+        exit;
+    }
+    
+    $args = array(
+        'post_type' => array('series', 'movie'),
+        'posts_per_page' => 10,
+        's' => $search_query,
+        'post_status' => 'publish',
+    );
+    
+    $query = new WP_Query($args);
+    $results = array();
+    
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $post_type = get_post_type();
+            $is_movie = ($post_type === 'movie');
+            
+            $year = $is_movie 
+                ? get_post_meta(get_the_ID(), '_wm_movie_year', true) 
+                : get_post_meta(get_the_ID(), '_wm_year', true);
+            
+            $thumbnail = '';
+            if (has_post_thumbnail()) {
+                $thumbnail = '<img src="' . esc_url(get_the_post_thumbnail_url(get_the_ID(), 'thumbnail')) . '" alt="' . esc_attr(get_the_title()) . '">';
+            }
+            
+            $results[] = array(
+                'id' => get_the_ID(),
+                'title' => get_the_title(),
+                'url' => get_permalink(),
+                'type' => $post_type,
+                'type_label' => $is_movie ? __('Movie', 'thisy-world') : __('Series', 'thisy-world'),
+                'year' => $year,
+                'thumbnail' => $thumbnail,
+            );
+        }
+        wp_reset_postdata();
+    }
+    
+    wp_send_json(array(
+        'success' => true,
+        'results' => array_slice($results, 0, 5),
+        'total' => $query->found_posts,
+    ));
+    exit;
+}
+add_action('wp_ajax_wm_live_search', 'thisy_world_live_search');
+add_action('wp_ajax_nopriv_wm_live_search', 'thisy_world_live_search');
