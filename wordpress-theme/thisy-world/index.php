@@ -7,7 +7,7 @@
 
 get_header();
 
-// Get featured movies and series (max 12)
+// Get featured movies and series (max 12), ordered by display order
 $args = array(
     'post_type' => array('series', 'movie'),
     'posts_per_page' => 12,
@@ -18,8 +18,11 @@ $args = array(
             'compare' => '='
         )
     ),
-    'orderby' => 'date',
-    'order' => 'DESC',
+    'meta_key' => '_wm_featured_order',
+    'orderby' => array(
+        'meta_value_num' => 'ASC',
+        'date' => 'DESC'
+    ),
 );
 
 $featured_query = new WP_Query($args);
