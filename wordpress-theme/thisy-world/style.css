@@ -1267,9 +1267,81 @@ h1, h2, h3, h4, h5, h6 {
     .wm-search__btn {
         padding: var(--wm-spacing-sm) var(--wm-spacing-md);
     }
+    
+    /* Single Page Mobile Fixes */
+    .wm-series-hero {
+        gap: var(--wm-spacing-lg);
+    }
+    
+    .wm-series-poster {
+        max-width: 280px;
+        margin: 0 auto;
+    }
+    
+    .wm-series-poster img {
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+        object-fit: cover;
+    }
+    
+    .wm-series-info__title {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+        text-align: center;
+    }
+    
+    .wm-series-info__description {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        padding: 0 var(--wm-spacing-sm);
+    }
+    
+    /* Meta badges mobile */
+    .wm-series-meta,
+    .wm-badge {
+        font-size: 0.8rem !important;
+    }
+    
+    .wm-badge {
+        padding: 0.35rem 0.75rem !important;
+    }
+    
+    /* Screenshots mobile */
+    .wm-screenshots__grid {
+        grid-template-columns: 1fr;
+        gap: var(--wm-spacing-sm);
+    }
+    
+    .wm-screenshot img {
+        aspect-ratio: 16/9;
+        max-height: 250px;
+    }
+    
+    /* Download section mobile */
+    .wm-download-section {
+        padding: 1rem !important;
+        margin-top: 2rem !important;
+    }
+    
+    .wm-download-group-item {
+        padding: 0.75rem !important;
+    }
+    
+    .wm-btn--download {
+        padding: 0.6rem 1.25rem !important;
+        font-size: 0.9rem;
+    }
 }
 
 @media (max-width: 480px) {
+    .wm-container {
+        padding: 0 var(--wm-spacing-sm);
+    }
+    
+    .wm-section {
+        padding: var(--wm-spacing-lg) 0;
+    }
+    
     .wm-series-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--wm-spacing-sm);
@@ -1280,24 +1352,122 @@ h1, h2, h3, h4, h5, h6 {
     }
     
     .wm-series-card__title {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
+    }
+    
+    .wm-series-card__meta {
+        font-size: 0.65rem;
+    }
+    
+    .wm-type-badge {
+        font-size: 0.6rem;
+        padding: 2px 6px;
     }
     
     .wm-btn {
         padding: var(--wm-spacing-sm) var(--wm-spacing-md);
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
     
     .wm-title-xl {
-        font-size: 1.75rem;
-    }
-    
-    .wm-title-lg {
         font-size: 1.5rem;
     }
     
-    .wm-container {
-        padding: 0 var(--wm-spacing-sm);
+    .wm-title-lg {
+        font-size: 1.25rem;
+    }
+    
+    .wm-title-md {
+        font-size: 1rem;
+    }
+    
+    /* Single Page - Small Mobile */
+    .wm-series-poster {
+        max-width: 220px;
+    }
+    
+    .wm-series-poster img {
+        max-height: 320px;
+    }
+    
+    .wm-series-info__title {
+        font-size: 1.3rem;
+    }
+    
+    .wm-series-info__description {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+    
+    .wm-series-meta {
+        justify-content: center;
+        gap: 0.5rem !important;
+    }
+    
+    .wm-genres {
+        justify-content: center;
+    }
+    
+    .wm-genre-tag {
+        font-size: 0.75rem !important;
+        padding: 0.2rem 0.5rem !important;
+    }
+    
+    /* Screenshots very small screens */
+    .wm-screenshots__title {
+        font-size: 1rem;
+        margin-bottom: var(--wm-spacing-sm);
+    }
+    
+    .wm-screenshot img {
+        max-height: 200px;
+    }
+    
+    /* Episode list mobile */
+    .wm-episode-item {
+        padding: var(--wm-spacing-md);
+    }
+    
+    .wm-episode-item__number {
+        width: 32px;
+        height: 32px;
+        font-size: 0.8rem;
+    }
+    
+    .wm-episode-item__title {
+        font-size: 0.9rem;
+    }
+    
+    .wm-episode-item__download {
+        padding: var(--wm-spacing-sm) var(--wm-spacing-md);
+        font-size: 0.8rem;
+    }
+    
+    /* Search prompt mobile */
+    .wm-search-prompt {
+        padding: var(--wm-spacing-lg);
+    }
+    
+    .wm-search-prompt h2 {
+        font-size: 1.1rem;
+    }
+    
+    .wm-search-prompt p {
+        font-size: 0.85rem;
+    }
+    
+    /* Live search mobile */
+    .wm-live-results__item {
+        padding: var(--wm-spacing-xs);
+    }
+    
+    .wm-live-results__thumb {
+        width: 40px;
+        height: 60px;
+    }
+    
+    .wm-live-results__title {
+        font-size: 0.85rem;
     }
 }
 

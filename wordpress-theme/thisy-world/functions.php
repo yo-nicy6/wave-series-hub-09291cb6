@@ -184,15 +184,22 @@ function thisy_world_info_meta_box($post) {
     $status = get_post_meta($post->ID, '_wm_status', true);
     $episode_count = get_post_meta($post->ID, '_wm_episode_count', true);
     $featured = get_post_meta($post->ID, '_wm_featured_home', true);
+    $featured_order = get_post_meta($post->ID, '_wm_featured_order', true);
     ?>
-    <p style="background:#fff3cd;padding:12px;border:1px solid #ffc107;border-radius:4px;margin-bottom:15px">
+    <div style="background:#fff3cd;padding:12px;border:1px solid #ffc107;border-radius:4px;margin-bottom:15px">
         <label for="wm_featured_home" style="display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:600;color:#856404">
             <input type="checkbox" id="wm_featured_home" name="wm_featured_home" value="1" <?php checked($featured, '1'); ?> style="width:18px;height:18px">
             <span class="dashicons dashicons-star-filled" style="color:#ffc107"></span>
             <?php _e('Show on Homepage', 'thisy-world'); ?>
         </label>
-        <span class="description" style="display:block;margin-top:5px;font-size:11px"><?php _e('Check to display this series on the homepage (max 12 items)', 'thisy-world'); ?></span>
-    </p>
+        <div style="margin-top:10px;padding-top:10px;border-top:1px dashed #ffc107">
+            <label for="wm_featured_order" style="display:block;font-weight:600;color:#856404;margin-bottom:5px">
+                <?php _e('Display Order (1 = First)', 'thisy-world'); ?>
+            </label>
+            <input type="number" id="wm_featured_order" name="wm_featured_order" value="<?php echo esc_attr($featured_order); ?>" min="1" max="12" style="width:60px;padding:5px;text-align:center" placeholder="1">
+            <span class="description" style="display:block;margin-top:5px;font-size:11px"><?php _e('Lower numbers appear first. Items with same number sorted by date.', 'thisy-world'); ?></span>
+        </div>
+    </div>
     <p><label for="wm_year"><strong><?php _e('Release Year', 'thisy-world'); ?></strong></label><br><input type="number" id="wm_year" name="wm_year" value="<?php echo esc_attr($year); ?>" min="1900" max="2099" class="widefat"></p>
     <p><label for="wm_rating"><strong><?php _e('Rating (1-10)', 'thisy-world'); ?></strong></label><br><input type="number" id="wm_rating" name="wm_rating" value="<?php echo esc_attr($rating); ?>" min="1" max="10" step="0.1" class="widefat"></p>
     <p><label for="wm_status"><strong><?php _e('Status', 'thisy-world'); ?></strong></label><br><select id="wm_status" name="wm_status" class="widefat"><option value="ongoing" <?php selected($status, 'ongoing'); ?>><?php _e('Ongoing', 'thisy-world'); ?></option><option value="completed" <?php selected($status, 'completed'); ?>><?php _e('Completed', 'thisy-world'); ?></option><option value="upcoming" <?php selected($status, 'upcoming'); ?>><?php _e('Upcoming', 'thisy-world'); ?></option></select></p>
@@ -238,6 +245,10 @@ function thisy_world_save_series_meta($post_id) {
         update_post_meta($post_id, '_wm_featured_home', '1');
     } else {
         delete_post_meta($post_id, '_wm_featured_home');
+    }
+    // Featured Order
+    if (isset($_POST['wm_featured_order'])) {
+        update_post_meta($post_id, '_wm_featured_order', intval($_POST['wm_featured_order']));
     }
 }
 add_action('save_post_series', 'thisy_world_save_series_meta');
@@ -377,15 +388,22 @@ function thisy_world_movie_info_meta_box($post) {
     $rating = get_post_meta($post->ID, '_wm_movie_rating', true);
     $duration = get_post_meta($post->ID, '_wm_movie_duration', true);
     $featured = get_post_meta($post->ID, '_wm_featured_home', true);
+    $featured_order = get_post_meta($post->ID, '_wm_featured_order', true);
     ?>
-    <p style="background:#fff3cd;padding:12px;border:1px solid #ffc107;border-radius:4px;margin-bottom:15px">
+    <div style="background:#fff3cd;padding:12px;border:1px solid #ffc107;border-radius:4px;margin-bottom:15px">
         <label for="wm_movie_featured_home" style="display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:600;color:#856404">
             <input type="checkbox" id="wm_movie_featured_home" name="wm_movie_featured_home" value="1" <?php checked($featured, '1'); ?> style="width:18px;height:18px">
             <span class="dashicons dashicons-star-filled" style="color:#ffc107"></span>
             <?php _e('Show on Homepage', 'thisy-world'); ?>
         </label>
-        <span class="description" style="display:block;margin-top:5px;font-size:11px"><?php _e('Check to display this movie on the homepage (max 12 items)', 'thisy-world'); ?></span>
-    </p>
+        <div style="margin-top:10px;padding-top:10px;border-top:1px dashed #ffc107">
+            <label for="wm_movie_featured_order" style="display:block;font-weight:600;color:#856404;margin-bottom:5px">
+                <?php _e('Display Order (1 = First)', 'thisy-world'); ?>
+            </label>
+            <input type="number" id="wm_movie_featured_order" name="wm_movie_featured_order" value="<?php echo esc_attr($featured_order); ?>" min="1" max="12" style="width:60px;padding:5px;text-align:center" placeholder="1">
+            <span class="description" style="display:block;margin-top:5px;font-size:11px"><?php _e('Lower numbers appear first. Items with same number sorted by date.', 'thisy-world'); ?></span>
+        </div>
+    </div>
     <p><label for="wm_movie_year"><strong><?php _e('Release Year', 'thisy-world'); ?></strong></label><br><input type="number" id="wm_movie_year" name="wm_movie_year" value="<?php echo esc_attr($year); ?>" min="1900" max="2099" class="widefat"></p>
     <p><label for="wm_movie_rating"><strong><?php _e('Rating (1-10)', 'thisy-world'); ?></strong></label><br><input type="number" id="wm_movie_rating" name="wm_movie_rating" value="<?php echo esc_attr($rating); ?>" min="1" max="10" step="0.1" class="widefat"></p>
     <p><label for="wm_movie_duration"><strong><?php _e('Duration (minutes)', 'thisy-world'); ?></strong></label><br><input type="number" id="wm_movie_duration" name="wm_movie_duration" value="<?php echo esc_attr($duration); ?>" min="1" class="widefat"><span class="description"><?php _e('e.g., 120 for 2 hours', 'thisy-world'); ?></span></p>
@@ -406,6 +424,10 @@ function thisy_world_save_movie_meta($post_id) {
         update_post_meta($post_id, '_wm_featured_home', '1');
     } else {
         delete_post_meta($post_id, '_wm_featured_home');
+    }
+    // Featured Order
+    if (isset($_POST['wm_movie_featured_order'])) {
+        update_post_meta($post_id, '_wm_featured_order', intval($_POST['wm_movie_featured_order']));
     }
 }
 add_action('save_post_movie', 'thisy_world_save_movie_meta');
